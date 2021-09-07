@@ -1,0 +1,5 @@
+__generated__
+global.d.ts
+config-*.js
+gatsby-*.js
+/.eslintrc.js

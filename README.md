@@ -1,2 +1,3 @@
-# kazaminn.github.io
-my website.
+# 🚀 Kazaminn's blog
+
+a blog powered by Gatsby.
