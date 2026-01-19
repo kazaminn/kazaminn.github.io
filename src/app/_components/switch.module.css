@@ -2,7 +2,7 @@
   all: unset;
   position: absolute;
   right: 20px;
-  top: 70px;
+  top: 20px;
   display: inline-block;
   color: currentColor;
   border-radius: 50%;
