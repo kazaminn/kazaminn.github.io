@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  font-family:
+    "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Segoe UI",
+    Arial, "Noto Sans JP", Meiryo, sans-serif;
+}
