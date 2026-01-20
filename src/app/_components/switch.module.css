@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .switch {
   all: unset;
   position: absolute;
