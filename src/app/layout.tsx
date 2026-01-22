@@ -1,5 +1,7 @@
-import Footer from "@/app/_components/footer";
-import { ThemeSwitcher } from "./_components/theme-switcher";
+import Footer from "@/app/_components/Footer";
+import Header from "@/app/_components/Header";
+import HtmlMeta from "./_components/HtmlMeta";
+import ThemeProvider from "./_components/ThemeProvider";
 import "./globals.css";
 
 export default function RootLayout({
@@ -9,43 +11,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <head>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link
-          rel="mask-icon"
-          href="/favicon/safari-pinned-tab.svg"
-          color="#000000"
-        />
-        <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <meta name="msapplication-TileColor" content="#000000" />
-        <meta
-          name="msapplication-config"
-          content="/favicon/browserconfig.xml"
-        />
-        <meta name="theme-color" content="#000" />
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      </head>
-      <body className="dark:bg-slate-900 dark:text-slate-400">
-        <ThemeSwitcher />
-        <div className="min-h-screen">{children}</div>
-        <Footer />
+      <HtmlMeta />
+      <body>
+        <ThemeProvider>
+          <div className="bg-bg text-fg dark:bg-bg-dark dark:text-fg-dark">
+            <Header />
+            <main className="mx-auto min-h-[calc(100vh-16rem)] max-w-2xl px-6 py-12">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
