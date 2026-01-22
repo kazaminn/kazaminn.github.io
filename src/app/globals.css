@@ -1,51 +1,71 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    var(--tw-gradient-stops)
-  );
+  --font-sans:
+    "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Segoe UI",
+    Arial, "Noto Sans JP", Meiryo, sans-serif;
 
-  --color-accent-1: #fafafa;
-  --color-accent-2: #eaeaea;
-  --color-accent-7: #333;
-  --color-success: #0070f3;
-  --color-cyan: #79ffe1;
+  --color-fg: oklch(20.8% 0.042 265.755); /* Slate 900 */
+  --color-bg: oklch(98.4% 0.003 247.858); /* Slate 50 */
+  --color-mute: oklch(55.4% 0.046 257.417); /* Slate 500 */
+  --color-link: oklch(50% 0.134 242.749); /* Sky 700 */
+  --color-border: oklch(92.9% 0.013 255.508); /* Slate 200 */
 
-  --tracking-tighter: -0.04em;
-
-  --text-5xl: 2.5rem;
-  --text-6xl: 2.75rem;
-  --text-7xl: 4.5rem;
-  --text-8xl: 6.25rem;
-
-  --shadow-sm: 0 5px 10px rgba(0, 0, 0, 0.12);
-  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --color-fg-dark: oklch(98.4% 0.003 247.858); /* Slate 50 */
+  --color-bg-dark: oklch(20.8% 0.042 265.755); /* Slate 900 */
+  --color-mute-dark: oklch(70.4% 0.04 256.788); /* Slate 400 */
+  --color-link-dark: oklch(74.6% 0.16 232.661); /* Sky 400 */
+  --color-border-dark: oklch(27.9% 0.041 260.031); /* Slate 800 */
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+  body {
+    color: var(--color-base);
+    background: var(--bg-base);
+  }
+  body.dark {
+    color: var(--color-base-dark);
+    background: var(--bg-base-dark);
+  }
+  a {
+    color: var(--color-link);
+  }
+  .dark a {
+    color: var(--color-link-dark);
   }
 }
 
-html {
-  font-family:
-    "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Segoe UI",
-    Arial, "Noto Sans JP", Meiryo, sans-serif;
+@layer components {
+  .markdown {
+    @apply text-lg leading-relaxed;
+  }
+
+  .markdown p,
+  .markdown ul,
+  .markdown ol,
+  .markdown blockquote {
+    @apply my-6;
+  }
+
+  .markdown h2 {
+    @apply mt-12 mb-4 text-3xl leading-snug;
+  }
+
+  .markdown h3 {
+    @apply mt-8 mb-4 text-2xl leading-snug;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
 }
