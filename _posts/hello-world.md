@@ -3,7 +3,7 @@ slug: "hello-world"
 title: "ようこそ、世界へ。"
 date: "2026-01-01T01:01:00+09:00"
 category: "other"
-summary: "記念するべき第一回目の投稿です。"
+summary: "最初の一歩は、いつだって小さな「Hello」から始まる。"
 ---
 
 # ようこそ、世界 🌏  

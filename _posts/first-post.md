@@ -16,7 +16,7 @@ summary: "Next.jsでブログサイトを構築し、GitHub Actionsで自動ビ�
 
 このサンプルに対応するGitHubリポジトリは[next.js/examples/blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter)です。
 
-コードをざっと確認したところReact 19ベースでApp Router使用, TypeScript。Tailwind v3で、コンポーネントのスタイル指定はCSS Modulesを併用して要るっぽいです。
+コードをざっと確認したところReact 19ベースでApp Router使用, TypeScript。Tailwind v3で、コンポーネントのスタイル指定はCSS Modulesを併用しているっぽいです。
 
 ```bash
 npx create-next-app --example blog-starter blog-starter-app
