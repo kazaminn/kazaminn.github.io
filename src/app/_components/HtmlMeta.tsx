@@ -1,5 +1,19 @@
 "use client";
-import { themeScript } from "@/lib/themeScript";
+
+import { memo } from "react";
+import { NoFOUCScript } from "@/lib/noFOUCScript";
+
+export const ThemeScript = memo(function ThemeScript() {
+  const scriptCode = `(${NoFOUCScript.toString()})('theme')`;
+  return (
+    <script
+      id="theme-toggle"
+      dangerouslySetInnerHTML={{
+        __html: scriptCode,
+      }}
+    />
+  );
+});
 
 export function HtmlMeta() {
   return (
@@ -32,7 +46,7 @@ export function HtmlMeta() {
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      <ThemeScript />
     </head>
   );
 }
