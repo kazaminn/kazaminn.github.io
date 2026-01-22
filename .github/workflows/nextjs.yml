@@ -9,7 +9,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "_post/**"
+      - "_posts/**"
       - "app/**"
       - "next.config.js"
 
