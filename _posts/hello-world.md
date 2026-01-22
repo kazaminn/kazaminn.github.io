@@ -1,19 +1,118 @@
 ---
-title: "Learn How to Pre-render Pages Using Static Generation with Next.js"
-excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
-coverImage: "/assets/blog/hello-world/cover.jpg"
-date: "2020-03-16T05:35:07.322Z"
-author:
-  name: Tim Neutkens
-  picture: "/assets/blog/authors/tim.jpeg"
-ogImage:
-  url: "/assets/blog/hello-world/cover.jpg"
+slug: "hello-world"
+title: "ようこそ、世界へ。"
+date: "2026-01-01T01:01:00+09:00"
+category: "other"
+summary: "記念するべき第一回目の投稿です。"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus. Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel. Egestas sed tempus urna et pharetra pharetra massa massa ultricies.
+# ようこそ、世界 🌏  
+最初の一歩は、いつだって小さな「Hello」から始まる。
 
-Venenatis cras sed felis eget velit. Consectetur libero id faucibus nisl tincidunt. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Volutpat consequat mauris nunc congue nisi vitae. Id aliquet risus feugiat in ante metus dictum at tempor. Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed adipiscing. Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Nibh cras pulvinar mattis nunc sed. Luctus accumsan tortor posuere ac ut consequat semper viverra. Fringilla ut morbi tincidunt augue interdum velit euismod.
+## 1. 見出しテスト
 
-## Lorem Ipsum
+### 1-1. サブ見出し
 
-Tristique senectus et netus et malesuada fames ac turpis. Ridiculous mus mauris vitae ultricies leo integer malesuada nunc vel. In mollis nunc sed id semper. Egestas tellus rutrum tellus pellentesque. Phasellus vestibulum lorem sed risus ultricies tristique nulla. Quis blandit turpis cursus in hac habitasse platea dictumst quisque. Eros donec ac odio tempor orci dapibus ultrices. Aliquam sem et tortor consequat id porta nibh. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Diam vulputate ut pharetra sit amet. Ut tellus elementum sagittis vitae et leo. Arcu non odio euismod lacinia at quis risus sed vulputate.
+#### 1-1-1. さらに小さい見出し
+
+---
+
+## 2. 強調テスト
+
+- **太字**  
+- *斜体*  
+- ***太字＋斜体***  
+- ~~取り消し線~~  
+- **ようこそ、世界** という言葉は、いつでも新しい始まりを連れてくる。
+
+---
+
+## 3. リストテスト
+
+### 箇条書き
+
+- 世界に挨拶する  
+- 新しい旅を始める  
+- 小さな一歩を積み重ねる  
+
+### 番号付きリスト
+
+1. 「Hello」を言う  
+2. ドアを開ける  
+3. 未来へ進む  
+
+### チェックボックス
+
+- [x] 世界に挨拶した  
+- [ ] 次の冒険を考える  
+- [ ] コーヒーを淹れる  
+
+---
+
+## 4. 引用テスト
+
+> 「ようこそ、世界。」  
+> その一言が、すべての物語の始まりになる。
+
+---
+
+## 5. コードテスト
+
+### インラインコード
+
+`console.log("Hello, World!")`
+
+### コードブロック（JavaScript）
+
+```javascript
+function hello() {
+  return "Hello, World!";
+}
+
+console.log(hello());
+```
+
+### コードブロック（シェル）
+
+```bash
+echo "ようこそ、世界"
+```
+
+---
+
+## 6. テーブルテスト
+
+| 言語       | 挨拶           | 読み方           |
+| ---------- | -------------- | ---------------- |
+| 日本語     | ようこそ、世界 | ようこそ、せかい |
+| 英語       | Hello, World   | へろー わーるど  |
+| スペイン語 | Hola, Mundo    | おら むんど      |
+
+---
+
+## 7. リンクテスト
+
+- [架空の世界へようこそ](https://example.com)
+- [Hello World の歴史](https://example.com/hello)
+
+---
+
+## 8. 画像リンクテスト（ダミー）
+
+```
+![Hello World Image](https://example.com/hello-world.png)
+```
+
+---
+
+## 9. 水平線テスト
+
+---
+
+## 10. 文章テスト
+
+ようこそ、世界。  
+この言葉は、プログラミングの最初の出会いであり、  
+旅の始まりを告げる魔法の呪文でもある。  
+あなたがどこへ向かうとしても、  
+この一言がそっと背中を押してくれる。
