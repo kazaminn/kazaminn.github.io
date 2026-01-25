@@ -5,7 +5,7 @@ import { SITE_METADATA } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-bg pb-[env(safe-area-inset-bottom)] text-fg dark:border-border-dark dark:bg-bg-dark dark:text-fg-dark">
+    <footer className="border-t border-border bg-bg text-fg dark:border-border-dark dark:bg-bg-dark dark:text-fg-dark">
       <div className="mx-auto max-w-2xl px-6 py-12">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
           <Image

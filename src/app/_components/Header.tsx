@@ -13,7 +13,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-bg/90 pt-[env(safe-area-inset-top)] text-fg backdrop-blur-md dark:border-border-dark dark:bg-bg-dark/90 dark:text-fg-dark">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-bg/90 text-fg backdrop-blur-md dark:border-border-dark dark:bg-bg-dark/90 dark:text-fg-dark">
       <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
         <div className="flex-1">
           <Link

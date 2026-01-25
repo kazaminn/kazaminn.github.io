@@ -15,6 +15,7 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#0f172b" },
   ],
   colorScheme: "light dark",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -27,7 +28,10 @@ export default function RootLayout({
       <HtmlMeta />
       <body>
         <ThemeProvider>
-          <div className="bg-bg text-fg dark:bg-bg-dark dark:text-fg-dark">
+          <div
+            id="global-wrapper"
+            className="pr-env(safe-area-inset-right) bg-bg pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-fg dark:bg-bg-dark dark:text-fg-dark"
+          >
             <Header />
             <main className="mx-auto min-h-[calc(100vh-16rem)] max-w-2xl px-6 py-12">
               {children}
