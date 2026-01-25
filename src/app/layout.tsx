@@ -1,8 +1,17 @@
+import type { Viewport } from "next";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 import HtmlMeta from "./_components/HtmlMeta";
 import ThemeProvider from "./_components/ThemeProvider";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+};
 
 export default function RootLayout({
   children,
@@ -14,7 +23,10 @@ export default function RootLayout({
       <HtmlMeta />
       <body>
         <ThemeProvider>
-          <div className="bg-bg text-fg dark:bg-bg-dark dark:text-fg-dark">
+          <div
+            id="global-wrapper"
+            className="bg-bg text-fg dark:bg-bg-dark dark:text-fg-dark"
+          >
             <Header />
             <main className="mx-auto min-h-[calc(100vh-16rem)] max-w-2xl px-6 py-12">
               {children}

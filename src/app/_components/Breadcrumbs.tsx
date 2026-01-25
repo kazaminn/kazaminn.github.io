@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { ChevronRight } from "react-bootstrap-icons";
+import { NAV_ITEMS } from "@/lib/constants";
 
 export function Breadcrumbs({ segments }: { segments: string[] }) {
+  const items = NAV_ITEMS;
+
   return (
-    <nav aria-label="Breadcrumb" className="mb-8">
-      <ol className="flex items-center gap-2 text-sm text-mute dark:text-mute-dark">
+    <nav aria-label="現在位置" className="mb-8">
+      <ol className="flex flex-wrap items-center gap-2 text-sm text-mute dark:text-mute-dark">
         <li>
           <Link
             href="/"
             className="transition-colors hover:text-link hover:underline dark:hover:text-link-dark"
           >
-            Home
+            {NAV_ITEMS[0].label}
           </Link>
         </li>
         {segments.map((s, i) => (
@@ -24,10 +27,10 @@ export function Breadcrumbs({ segments }: { segments: string[] }) {
               <span className="font-medium">{s}</span>
             ) : (
               <Link
-                href="/blog"
+                href={NAV_ITEMS[1].href}
                 className="capitalize transition-colors hover:text-link hover:underline dark:hover:text-link-dark"
               >
-                {s}
+                {NAV_ITEMS[1].label}
               </Link>
             )}
           </li>

@@ -1,4 +1,5 @@
 "use client";
+
 import { useCallback, useEffect, useState } from "react";
 import { STORAGE_KEY, Theme, ThemeContext } from "@/lib/themeContext";
 
@@ -10,44 +11,42 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<Theme>("system");
 
-  const applyTheme = useCallback((targetTheme: Theme) => {
+  const applyTheme = useCallback((target: Theme) => {
     if (typeof window === "undefined") return;
 
     if (window.updateDOM) {
       window.updateDOM();
-    } else {
-      const isDark =
-        targetTheme === "dark" ||
-        (targetTheme === "system" &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches);
-      document.documentElement.classList.toggle("dark", isDark);
-      document.documentElement.setAttribute("data-mode", targetTheme);
+      return;
     }
+
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const isDark = target === "dark" || (target === "system" && prefersDark);
+
+    document.documentElement.classList.toggle("dark", isDark);
+    document.documentElement.setAttribute("data-mode", target);
   }, []);
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Theme;
-      if (stored && stored !== theme) {
-        setTheme(stored);
-        applyTheme(stored);
-      } else {
-        applyTheme("system");
-      }
-    } catch (e) {
+      const initial = stored || "system";
+      // Intentional: restore saved theme early to prevent FOUC.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(initial);
+      applyTheme(initial);
+    } catch {
       applyTheme("system");
     }
     setMounted(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applyTheme]);
 
   useEffect(() => {
     if (!mounted) return;
-
     try {
       localStorage.setItem(STORAGE_KEY, theme);
-    } catch (e) {}
-
+    } catch {}
     applyTheme(theme);
   }, [theme, mounted, applyTheme]);
 

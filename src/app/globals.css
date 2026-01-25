@@ -21,25 +21,90 @@
 }
 
 @layer base {
+  html {
+    width: 100%;
+    min-width: 320px;
+  }
+
   body {
-    color: var(--color-base);
-    background: var(--bg-base);
+    color: var(--color-fg);
+    background: var(--color-bg);
+    font-family: var(--font-sans);
   }
-  body.dark {
-    color: var(--color-base-dark);
-    background: var(--bg-base-dark);
+
+  .dark body {
+    color: var(--color-fg-dark);
+    background: var(--color-bg-dark);
   }
+
   a {
     color: var(--color-link);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+    text-decoration: none;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+  a:hover {
+    color: var(--color-link-dark);
   }
   .dark a {
     color: var(--color-link-dark);
+  }
+  .dark a:hover {
+    color: var(--color-link);
+  }
+  .markdown pre:focus {
+    outline: none;
+  }
+
+  .markdown pre:focus-visible {
+    outline: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
   }
 }
 
 @layer components {
   .markdown {
-    @apply text-lg leading-relaxed;
+    @apply text-[1rem] leading-relaxed;
+    word-break: break-word;
+  }
+
+  .markdown h1 {
+    @apply mt-14 mb-6 text-3xl leading-snug font-bold;
+  }
+
+  .markdown h2 {
+    @apply mt-12 mb-4 text-2xl leading-snug font-semibold;
+  }
+
+  .markdown h3 {
+    @apply mt-10 mb-3 text-xl leading-snug font-semibold;
+  }
+
+  .markdown h4 {
+    @apply mt-8 mb-2 text-lg leading-snug font-semibold;
   }
 
   .markdown p,
@@ -49,13 +114,73 @@
     @apply my-6;
   }
 
-  .markdown h2 {
-    @apply mt-12 mb-4 text-3xl leading-snug;
+  .markdown ul {
+    @apply list-disc pl-6;
   }
 
-  .markdown h3 {
-    @apply mt-8 mb-4 text-2xl leading-snug;
+  .markdown ol {
+    @apply list-decimal pl-6;
   }
+
+  .markdown blockquote {
+    @apply border-l-4 pl-4 text-mute italic dark:text-mute-dark;
+  }
+
+  .markdown img {
+    @apply my-6 rounded-lg;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .markdown table {
+    @apply my-6 w-full border-collapse text-sm;
+  }
+
+  .markdown th,
+  .markdown td {
+    @apply border border-border px-3 py-2 dark:border-border-dark;
+  }
+
+  .markdown th {
+    @apply bg-border font-semibold dark:bg-border-dark;
+  }
+
+  .markdown code {
+    @apply rounded bg-border px-1 py-0.5 text-sm dark:bg-border-dark;
+  }
+
+  .markdown pre {
+    @apply my-6 overflow-x-auto rounded-lg bg-border p-4 text-sm dark:bg-border-dark;
+  }
+
+  .markdown pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* .markdown a:focus-visible {
+    outline: 3px solid oklch(65% 0.15 240);
+    outline-offset: 3px;
+    border-radius: 4px;
+  } */
+
+  /*
+  .markdown button,
+  .markdown .btn {
+    @apply px-4 py-2 rounded bg-link text-white dark:bg-link-dark;
+    transition: background-color 0.15s ease;
+  }
+
+  .markdown button:hover,
+  .markdown .btn:hover {
+    @apply bg-link-dark dark:bg-link;
+  }
+
+  .markdown button:focus-visible,
+  .markdown .btn:focus-visible {
+    outline: 3px solid oklch(65% 0.15 240);
+    outline-offset: 3px;
+  }
+    */
 
   .sr-only {
     position: absolute;

@@ -7,38 +7,51 @@ declare global {
 }
 
 export function NoFOUCScript(storageKey: string) {
-  const [SYSTEM, DARK, LIGHT] = ["system", "dark", "light"];
+  const SYSTEM = "system";
+  const DARK = "dark";
+  const LIGHT = "light";
 
-  const modifyTransition = () => {
-    const css = document.createElement("style");
-    css.textContent = "*,*:after,*:before{transition:none !important;}";
-    document.head.appendChild(css);
+  const disableTransitions = () => {
+    const style = document.createElement("style");
+    style.textContent = "*,*:before,*:after{transition:none!important}";
+    document.head.appendChild(style);
     return () => {
       window.getComputedStyle(document.body);
-      setTimeout(() => {
-        if (document.head.contains(css)) document.head.removeChild(css);
-      }, 1);
+      setTimeout(() => style.remove(), 1);
     };
   };
 
-  const media = window.matchMedia(`(prefers-color-scheme: ${DARK})`);
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const setThemeColor = (isDark: boolean) => {
+    const color = isDark ? "#0f172b" : "#f8fafc";
+    let meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "theme-color");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", color);
+  };
 
   window.updateDOM = () => {
-    const restoreTransitions = modifyTransition();
+    const restore = disableTransitions();
+
     let mode = SYSTEM;
     try {
       mode = localStorage.getItem(storageKey) || SYSTEM;
-    } catch (e) {}
+    } catch {}
 
     const systemMode = media.matches ? DARK : LIGHT;
-    const resolvedMode = mode === SYSTEM ? systemMode : mode;
+    const resolved = mode === SYSTEM ? systemMode : mode;
+    const isDark = resolved === DARK;
 
     const root = document.documentElement;
-    if (resolvedMode === DARK) root.classList.add(DARK);
-    else root.classList.remove(DARK);
-
+    root.classList.toggle(DARK, isDark);
     root.setAttribute("data-mode", mode);
-    restoreTransitions();
+
+    setThemeColor(isDark);
+    restore();
   };
 
   window.updateDOM();
