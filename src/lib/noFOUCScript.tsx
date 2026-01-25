@@ -1,15 +1,12 @@
 "use client";
 
-import { memo } from "react";
-import { STORAGE_KEY } from "./themeContext";
-
 declare global {
   interface Window {
     updateDOM: () => void;
   }
 }
 
-function NoFOUCScript(storageKey: string) {
+export function NoFOUCScript(storageKey: string) {
   const [SYSTEM, DARK, LIGHT] = ["system", "dark", "light"];
 
   const modifyTransition = () => {
@@ -47,13 +44,3 @@ function NoFOUCScript(storageKey: string) {
   window.updateDOM();
   media.addEventListener("change", window.updateDOM);
 }
-
-export const themeScript = memo(function themeScript() {
-  return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `(${NoFOUCScript.toString()})('${STORAGE_KEY}')`,
-      }}
-    />
-  );
-});
