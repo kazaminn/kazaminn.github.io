@@ -1,5 +1,5 @@
 export const SITE_METADATA = {
-  url: "http://localhost:3000/",
+  url: "https://kazaminn.github.io",
   title: `Kazaminn's blog`,
   description: `React開発メインの備忘録`,
   author: {
@@ -13,3 +13,9 @@ export const SITE_METADATA = {
     images: ["/assets/og-default.jpg"],
   },
 } as const;
+
+export const NAV_ITEMS = [
+  { label: "ホーム", href: "/" },
+  { label: "ブログ", href: "/blog" },
+  { label: "私について", href: "/about" },
+] as const;

@@ -21,6 +21,9 @@
 }
 
 @layer base {
+  html {
+    background: var(--bg-base);
+  }
   body {
     color: var(--color-base);
     background: var(--bg-base);
