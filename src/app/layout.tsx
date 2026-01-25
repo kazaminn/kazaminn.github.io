@@ -1,8 +1,20 @@
+import type { Viewport } from "next";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 import HtmlMeta from "./_components/HtmlMeta";
 import ThemeProvider from "./_components/ThemeProvider";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172b" },
+  ],
+};
 
 export default function RootLayout({
   children,

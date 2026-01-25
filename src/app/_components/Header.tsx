@@ -2,16 +2,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "@/app/_components/ThemeToggle";
-import { SITE_METADATA } from "@/lib/constants";
+import { NAV_ITEMS, SITE_METADATA } from "@/lib/constants";
 
 export function Header() {
   const pathname = usePathname();
-
-  const NAV_ITEMS = [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-    { label: "About", href: "/about" },
-  ] as const;
 
   const isActive = (path: string) => {
     if (path === "/") return pathname === "/";
@@ -19,33 +13,36 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border dark:border-border-dark text-fg dark:text-fg-dark bg-bg/90 dark:bg-bg-dark/90 backdrop-blur-md">
-      <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-bg/90 pt-[env(safe-area-inset-top)] text-fg backdrop-blur-md dark:border-border-dark dark:bg-bg-dark/90 dark:text-fg-dark">
+      <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
         <div className="flex-1">
           <Link
             href="/"
-            className="text-fg dark:text-fg-dark text-xl font-bold tracking-tight hover:opacity-70 transition-opacity hover:underline"
+            className="text-xl font-bold tracking-tight text-fg transition-opacity hover:underline hover:opacity-70 dark:text-fg-dark"
           >
             {SITE_METADATA.title}
           </Link>
         </div>
 
-        <nav className="hidden md:flex flex-1 justify-center items-center gap-8 text-sm font-medium">
+        <nav
+          className="hidden flex-1 items-center justify-center gap-8 text-sm font-medium md:flex"
+          aria-label="サイトメニュー"
+        >
           {NAV_ITEMS.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
               className={`transition-colors ${
                 isActive(href)
-                  ? "text-link dark:text-link-dark hover:underline"
-                  : "text-mute dark:text-mute-dark hover:text-link dark:hover:text-link-dark hover:underline"
+                  ? "text-link hover:underline dark:text-link-dark"
+                  : "text-mute hover:text-link hover:underline dark:text-mute-dark dark:hover:text-link-dark"
               }`}
             >
               {label}
             </Link>
           ))}
         </nav>
-        <div className="flex-1 flex justify-end">
+        <div className="flex flex-1 justify-end">
           <ThemeToggle />
         </div>
       </div>
