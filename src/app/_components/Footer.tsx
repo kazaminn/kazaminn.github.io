@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import { Github } from "react-bootstrap-icons";
 import { SITE_METADATA } from "@/lib/constants";
@@ -8,12 +8,13 @@ export function Footer() {
     <footer className="pb-safe border-t border-border bg-bg text-fg dark:border-border-dark dark:bg-bg-dark dark:text-fg-dark">
       <div className="mx-auto max-w-2xl px-6 py-12">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-          <Image
+          <ExportedImage
             src={SITE_METADATA.author.picture}
             alt={SITE_METADATA.author.name}
             className="h-16 w-16 rounded-full border border-border object-cover dark:border-border-dark"
             width="64"
             height="64"
+            unoptimized={true}
           />
           <div className="text-center sm:text-left">
             <h2 className="mb-1 text-lg font-bold">

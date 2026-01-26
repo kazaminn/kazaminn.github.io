@@ -2,10 +2,16 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/app/_components/Breadcrumbs";
+import ContentBody from "@/app/_components/ContentBody";
 import FormattedDate from "@/app/_components/FormattedDate";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { SITE_METADATA } from "@/lib/constants";
-import markdownToHtml from "@/lib/markdownToHtml";
+
+type Params = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
 export default async function Post(props: Params) {
   const params = await props.params;
@@ -14,8 +20,6 @@ export default async function Post(props: Params) {
   if (!post) {
     return notFound();
   }
-
-  const content = await markdownToHtml(post.content || "");
 
   return (
     <article>
@@ -35,51 +39,48 @@ export default async function Post(props: Params) {
         </h1>
       </header>
       <div className="max-w-none space-y-6 text-lg">
-        {post.summary && <p>{post.summary}</p>}
-        <div
-          className="markdown"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-        <Link
-          href="/blog"
-          className="mt-8 inline-block text-sm font-medium text-link hover:underline dark:text-link-dark"
-        >
-          ← 記事一覧に戻る
-        </Link>
+        <section className="min-h-50">
+          <ContentBody content={post.content || ""} />
+        </section>
+
+        <footer>
+          <Link href="/blog">← 記事一覧に戻る</Link>
+        </footer>
       </div>
     </article>
   );
 }
 
-type Params = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
-
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
   const post = getPostBySlug(params.slug);
 
-  if (!post) {
-    return notFound();
-  }
+  if (!post) return {};
 
   const title = `${post.title} | ${SITE_METADATA.title}`;
-  const images = post.ogImage && [post.ogImage.url];
+  const description = post.summary || SITE_METADATA.description;
 
   return {
     title,
+    description,
     openGraph: {
       title,
-      images,
+      description,
+      type: "article",
+      publishedTime: post.date,
+      images: post.ogImage ? [{ url: post.ogImage.url, alt: post.title }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: post.ogImage ? [post.ogImage.url] : [],
     },
   };
 }
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-
   return posts.map((post) => ({
     slug: post.slug,
   }));

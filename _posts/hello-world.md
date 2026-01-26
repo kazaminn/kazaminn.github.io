@@ -99,9 +99,9 @@ echo "ようこそ、世界"
 
 ## 8. 画像リンクテスト（ダミー）
 
-```
-![Hello World Image](https://example.com/hello-world.png)
-```
+![キツネの写真](./images/fox-4589927_1280.jpg)
+
+Image by <a href="https://pixabay.com/users/rottonara-596655/?utm_source=link-attribution&utm_content=4589927">Mario</a> from Pixabay
 
 ---
 
