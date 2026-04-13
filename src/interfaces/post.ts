@@ -8,8 +8,5 @@ export type Post = {
   coverImage?: string;
   category?: string;
   summary?: string;
-  ogImage?: {
-    url: string;
-  };
   content: string;
 };

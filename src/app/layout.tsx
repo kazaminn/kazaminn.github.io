@@ -1,9 +1,14 @@
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
+import { SITE_METADATA } from "@/lib/constants";
 import HtmlMeta from "./_components/HtmlMeta";
 import ThemeProvider from "./_components/ThemeProvider";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_METADATA.url),
+};
 
 export const viewport: Viewport = {
   width: "device-width",

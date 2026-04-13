@@ -68,13 +68,11 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
       description,
       type: "article",
       publishedTime: post.date,
-      images: post.ogImage ? [{ url: post.ogImage.url, alt: post.title }] : [],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: post.ogImage ? [post.ogImage.url] : [],
     },
   };
 }

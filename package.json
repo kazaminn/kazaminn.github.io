@@ -5,6 +5,7 @@
     "prebuild": "node scripts/prebuild.mjs",
     "dev": "next dev --turbopack",
     "build": "next build",
+    "postbuild": "node scripts/postbuild.mjs",
     "start": "npx serve dist"
   },
   "dependencies": {
