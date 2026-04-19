@@ -37,4 +37,11 @@
     ],
     "description": "ISO 8601 形式の現在日時を挿入する",
   },
+  "Commit Message": {
+    "prefix": "commitmsg",
+    "body": [
+      "${1|🎉 init,✨ feat,🛠️ fix,♻️ refactor,🚀 perf,🧪 test,💄 style,📝 docs,🧹 chore,🚧 wip|}(${2:scope}): ${3:subject}",
+    ],
+    "description": "Gitmoji + Conventional Commit message",
+  },
 }
