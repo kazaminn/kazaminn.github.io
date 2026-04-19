@@ -1,10 +1,32 @@
 import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono, Outfit, Source_Sans_3 } from "next/font/google";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 import { SITE_METADATA } from "@/lib/constants";
 import HtmlMeta from "./_components/HtmlMeta";
-import ThemeProvider from "./_components/ThemeProvider";
 import "./globals.css";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  variable: "--font-source-sans",
+  display: "swap",
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_METADATA.url),
@@ -24,21 +46,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html
+      lang="ja"
+      className={`${outfit.variable} ${sourceSans.variable} ${jetbrainsMono.variable}`}
+    >
       <HtmlMeta />
       <body>
-        <ThemeProvider>
-          <div
-            id="global-wrapper"
-            className="bg-bg text-fg dark:bg-bg-dark dark:text-fg-dark"
-          >
-            <Header />
-            <main className="mx-auto min-h-[calc(100vh-16rem)] max-w-2xl px-6 py-12">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <div id="global-wrapper">
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

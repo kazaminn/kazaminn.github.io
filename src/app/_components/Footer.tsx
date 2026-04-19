@@ -1,42 +1,35 @@
-import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import { Github } from "react-bootstrap-icons";
 import { SITE_METADATA } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="pb-safe border-t border-border bg-bg text-fg dark:border-border-dark dark:bg-bg-dark dark:text-fg-dark">
-      <div className="mx-auto max-w-2xl px-6 py-12">
-        <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-          <ExportedImage
-            src={SITE_METADATA.author.picture}
-            alt={SITE_METADATA.author.name}
-            className="h-16 w-16 rounded-full border border-border object-cover dark:border-border-dark"
-            width="64"
-            height="64"
-            unoptimized={true}
-          />
-          <div className="text-center sm:text-left">
-            <h2 className="mb-1 text-lg font-bold">
-              {SITE_METADATA.author.name}
-            </h2>
-            <p className="text-sm leading-relaxed">
-              {SITE_METADATA.author.description}
-            </p>
-            <div className="mt-4 flex justify-center gap-4 sm:justify-start">
-              <Link
-                href={SITE_METADATA.author.github}
-                aria-label="Github"
-                className="text-mute transition-colors hover:text-link hover:underline dark:text-mute-dark dark:hover:text-link-dark"
-              >
-                <Github size={20} />
-              </Link>
-            </div>
-          </div>
+    <footer className="pb-safe relative mt-12 border-t border-border-soft px-8 py-10">
+      <div className="aurora-divider absolute inset-x-0 -top-px" />
+      <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 text-center font-sans text-xs text-faint">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 leading-none">
+          <span className="font-display font-semibold text-accent">
+            {SITE_METADATA.author.name}
+          </span>
+          <span aria-hidden="true" className="opacity-30">
+            ·
+          </span>
+          <span>{SITE_METADATA.author.description}</span>
+          <span aria-hidden="true" className="opacity-30">
+            ·
+          </span>
+          <Link
+            href={SITE_METADATA.author.github}
+            aria-label="Github"
+            className="inline-flex items-center gap-1 text-link"
+          >
+            <Github size={14} aria-hidden="true" />
+            GitHub
+          </Link>
         </div>
-        <p className="mt-12 text-center text-xs text-mute dark:text-mute-dark">
-          © 2026 {SITE_METADATA.author.name}.
-        </p>
+        <div className="opacity-50">
+          © 2026 {SITE_METADATA.author.name}. Building for everyone.
+        </div>
       </div>
     </footer>
   );

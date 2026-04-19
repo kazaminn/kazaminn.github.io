@@ -5,7 +5,7 @@ export const SITE_METADATA = {
   author: {
     name: `Kazaminn`,
     picture: "/assets/blog/authors/kazaminn.jpg",
-    description: "Webエンジニア",
+    description: "アプリ作るのが好きな人",
     github: "https://github.com/kazaminn",
   },
 

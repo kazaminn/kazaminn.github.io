@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Breadcrumbs from "@/app/_components/Breadcrumbs";
 import ContentBody from "@/app/_components/ContentBody";
 import FormattedDate from "@/app/_components/FormattedDate";
+import Tag from "@/app/_components/Tag";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { SITE_METADATA } from "@/lib/constants";
 
@@ -22,29 +23,32 @@ export default async function Post(props: Params) {
   }
 
   return (
-    <article>
-      <Breadcrumbs segments={["Blog", post.title]} />
-      <header className="mb-10 border-b border-border pb-8 dark:border-border-dark">
-        <div className="mb-3 flex items-center gap-3 text-sm text-mute dark:text-mute-dark">
+    <article className="page-in">
+      <header className="mx-auto max-w-2xl px-6 pt-12 pb-6">
+        <Breadcrumbs segments={["Blog", post.title]} />
+        <div className="mb-2.5 flex items-center gap-3 font-mono text-[11px] text-faint">
           <FormattedDate dateString={post.date} />
-          {post.category && (
-            <>
-              <span>•</span>
-              <span className="font-medium">{post.category}</span>
-            </>
-          )}
         </div>
-        <h1 className="mb-4 text-3xl leading-tight font-extrabold tracking-tight sm:text-4xl">
+        <h1 className="m-0 font-display text-2xl leading-snug font-bold tracking-tight text-heading sm:text-3xl">
           {post.title}
         </h1>
       </header>
-      <div className="max-w-none space-y-6 text-lg">
-        <section className="min-h-50">
+
+      <div className="mx-auto max-w-2xl px-6 pb-16">
+        {post.category && (
+          <div className="mb-8 flex flex-wrap gap-1.5">
+            <Tag label={post.category} />
+          </div>
+        )}
+
+        <section className="min-h-[200px]">
           <ContentBody content={post.content || ""} />
         </section>
 
-        <footer>
-          <Link href="/blog">← 記事一覧に戻る</Link>
+        <footer className="mt-12 border-t border-border-soft pt-6 font-mono text-xs">
+          <Link href="/blog" className="text-link">
+            ← 記事一覧に戻る
+          </Link>
         </footer>
       </div>
     </article>

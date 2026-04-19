@@ -1,72 +1,142 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+:root {
+  --aurora-bg: #08090e;
+  --aurora-bg-deep: #050609;
+  --aurora-surface: #0e1018;
+  --aurora-card: #111320;
+  --aurora-card-hover: #161828;
+  --aurora-text: #d8dce8;
+  --aurora-text-sub: #8a90a8;
+  --aurora-text-faint: #707590;
+  --aurora-heading: #e4e8f4;
+  --aurora-border: #1e2038;
+  --aurora-border-soft: #161830;
+  --aurora-accent: #5ee4a0;
+  --aurora-accent-soft: rgba(94, 228, 160, 0.2);
+  --aurora-accent-faint: rgba(94, 228, 160, 0.05);
+  --aurora-link: #60a0e8;
+  --aurora-link-hover: #80b8f0;
+  --aurora-code: #0d1020;
+  --aurora-code-border: #1a1e38;
+  --aurora-teal: #4ad4c0;
+
+  --font-display:
+    var(--font-outfit), "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  --font-body:
+    var(--font-source-sans), "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 
 @theme {
-  --font-sans:
-    "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Segoe UI",
-    Arial, "Noto Sans JP", Meiryo, sans-serif;
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 
-  --color-fg: oklch(20.8% 0.042 265.755); /* Slate 900 */
-  --color-bg: oklch(98.4% 0.003 247.858); /* Slate 50 */
-  --color-mute: oklch(55.4% 0.046 257.417); /* Slate 500 */
-  --color-link: oklch(50% 0.134 242.749); /* Sky 700 */
-  --color-border: oklch(92.9% 0.013 255.508); /* Slate 200 */
-
-  --color-fg-dark: oklch(98.4% 0.003 247.858); /* Slate 50 */
-  --color-bg-dark: oklch(20.8% 0.042 265.755); /* Slate 900 */
-  --color-mute-dark: oklch(70.4% 0.04 256.788); /* Slate 400 */
-  --color-link-dark: oklch(74.6% 0.16 232.661); /* Sky 400 */
-  --color-border-dark: oklch(27.9% 0.041 260.031); /* Slate 800 */
+  --color-bg: #08090e;
+  --color-surface: #0e1018;
+  --color-card: #111320;
+  --color-card-hover: #161828;
+  --color-heading: #e4e8f4;
+  --color-text: #d8dce8;
+  --color-sub: #8a90a8;
+  --color-faint: #707590;
+  --color-accent: #5ee4a0;
+  --color-border: #1e2038;
+  --color-border-soft: #161830;
+  --color-link: #60a0e8;
+  --color-link-hover: #80b8f0;
 }
 
 @layer base {
   html {
     width: 100%;
     min-width: 320px;
+    color-scheme: dark;
   }
 
   body {
-    color: var(--color-fg);
-    background: var(--color-bg);
-    font-family: var(--font-sans);
-  }
-
-  .dark body {
-    color: var(--color-fg-dark);
-    background: var(--color-bg-dark);
+    color: var(--aurora-text);
+    background:
+      radial-gradient(
+        ellipse 80% 50% at 18% 8%,
+        rgba(94, 228, 160, 0.22),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 45% at 82% 4%,
+        rgba(96, 160, 232, 0.18),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 50% 12%,
+        rgba(160, 128, 224, 0.14),
+        transparent 55%
+      ),
+      var(--aurora-bg);
+    background-attachment: fixed;
+    font-family: var(--font-body);
+    min-height: 100vh;
   }
 
   a {
-    color: var(--color-link);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 2px;
+    color: var(--aurora-link);
     text-decoration: none;
-    transition:
-      color 0.15s ease,
-      background-color 0.15s ease;
+    transition: color 0.15s ease;
   }
   a:hover {
-    color: var(--color-link-dark);
-  }
-  .dark a {
-    color: var(--color-link-dark);
-  }
-  .dark a:hover {
-    color: var(--color-link);
-  }
-  .markdown pre:focus {
-    outline: none;
+    color: var(--aurora-link-hover);
   }
 
-  .markdown pre:focus-visible {
-    outline: none;
+  ::selection {
+    background: rgba(94, 228, 160, 0.2);
+    color: var(--aurora-heading);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-in {
+  animation: pageIn 0.4s ease;
+}
+
+.aurora-glow {
+  text-shadow:
+    0 0 24px rgba(94, 228, 160, 0.35),
+    0 0 48px rgba(94, 228, 160, 0.15);
+}
+
+.aurora-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(94, 228, 160, 0.18),
+    rgba(74, 212, 192, 0.22),
+    rgba(96, 160, 232, 0.18),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-in {
+    animation: none !important;
   }
 }
 
@@ -87,22 +157,32 @@
 
 @layer components {
   .markdown {
-    @apply text-[1rem] leading-relaxed;
+    @apply text-sm leading-relaxed;
+    color: var(--aurora-text);
     word-break: break-word;
+    font-family: var(--font-body);
+  }
+
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4 {
+    color: var(--aurora-heading);
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
   }
 
   .markdown h1 {
     @apply mt-14 mb-6 text-3xl leading-snug font-bold;
   }
-
   .markdown h2 {
     @apply mt-12 mb-4 text-2xl leading-snug font-semibold;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--aurora-border-soft);
   }
-
   .markdown h3 {
     @apply mt-10 mb-3 text-xl leading-snug font-semibold;
   }
-
   .markdown h4 {
     @apply mt-8 mb-2 text-lg leading-snug font-semibold;
   }
@@ -117,13 +197,25 @@
   .markdown ul {
     @apply list-disc pl-6;
   }
-
   .markdown ol {
     @apply list-decimal pl-6;
   }
 
   .markdown blockquote {
-    @apply border-l-4 pl-4 text-mute italic dark:text-mute-dark;
+    padding: 20px 24px;
+    border-radius: 6px;
+    background: var(--aurora-accent-faint);
+    border-left: 3px solid rgba(94, 228, 160, 0.27);
+    color: var(--aurora-text-sub);
+  }
+
+  .markdown a {
+    color: var(--aurora-link);
+    border-bottom: 1px solid rgba(96, 160, 232, 0.33);
+  }
+  .markdown a:hover {
+    color: var(--aurora-link-hover);
+    border-bottom-color: var(--aurora-link-hover);
   }
 
   .markdown img {
@@ -135,52 +227,43 @@
   .markdown table {
     @apply my-6 w-full border-collapse text-sm;
   }
-
   .markdown th,
   .markdown td {
-    @apply border border-border px-3 py-2 dark:border-border-dark;
+    border: 1px solid var(--aurora-border);
+    padding: 8px 12px;
   }
-
   .markdown th {
-    @apply bg-border font-semibold dark:bg-border-dark;
+    background: var(--aurora-surface);
+    color: var(--aurora-heading);
+    font-weight: 600;
   }
 
   .markdown code {
-    @apply rounded bg-border px-1 py-0.5 text-sm dark:bg-border-dark;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--aurora-code);
+    border: 1px solid var(--aurora-code-border);
+    color: var(--aurora-teal);
+    padding: 2px 6px;
+    border-radius: 4px;
   }
 
   .markdown pre {
-    @apply my-6 overflow-x-auto rounded-lg bg-border p-4 text-sm dark:bg-border-dark;
+    @apply my-6 overflow-x-auto;
+    background: var(--aurora-code);
+    border: 1px solid var(--aurora-code-border);
+    border-radius: 6px;
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    line-height: 1.7;
   }
-
   .markdown pre code {
-    @apply bg-transparent p-0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: inherit;
   }
-
-  /* .markdown a:focus-visible {
-    outline: 3px solid oklch(65% 0.15 240);
-    outline-offset: 3px;
-    border-radius: 4px;
-  } */
-
-  /*
-  .markdown button,
-  .markdown .btn {
-    @apply px-4 py-2 rounded bg-link text-white dark:bg-link-dark;
-    transition: background-color 0.15s ease;
-  }
-
-  .markdown button:hover,
-  .markdown .btn:hover {
-    @apply bg-link-dark dark:bg-link;
-  }
-
-  .markdown button:focus-visible,
-  .markdown .btn:focus-visible {
-    outline: 3px solid oklch(65% 0.15 240);
-    outline-offset: 3px;
-  }
-    */
 
   .sr-only {
     position: absolute;

@@ -1,20 +1,3 @@
-"use client";
-
-import { memo } from "react";
-import { NoFOUCScript } from "@/lib/noFOUCScript";
-
-export const ThemeScript = memo(function ThemeScript() {
-  const scriptCode = `(${NoFOUCScript.toString()})('theme')`;
-  return (
-    <script
-      id="theme-toggle"
-      dangerouslySetInnerHTML={{
-        __html: scriptCode,
-      }}
-    />
-  );
-});
-
 export function HtmlMeta() {
   return (
     <head>
@@ -39,13 +22,13 @@ export function HtmlMeta() {
       <link
         rel="mask-icon"
         href="/favicon/safari-pinned-tab.svg"
-        color="#000000"
+        color="#08090e"
       />
       <link rel="shortcut icon" href="/favicon/favicon.ico" />
-      <meta name="msapplication-TileColor" content="#000000" />
+      <meta name="msapplication-TileColor" content="#08090e" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+      <meta name="theme-color" content="#08090e" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <ThemeScript />
     </head>
   );
 }

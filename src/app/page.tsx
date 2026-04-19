@@ -1,70 +1,66 @@
 import Link from "next/link";
 import FormattedDate from "@/app/_components/FormattedDate";
+import Tag from "@/app/_components/Tag";
 import { getAllPosts } from "@/lib/api";
 import { SITE_METADATA } from "@/lib/constants";
 
 export default function HomePage() {
-  const allPosts = getAllPosts();
+  const recent = getAllPosts().slice(0, 4);
 
   return (
-    <div className="space-y-16">
-      <section className="py-12">
-        <h1 className="mb-4 text-4xl font-extrabold tracking-tight">
-          Building for everyone.
+    <div className="page-in">
+      <header className="mx-auto max-w-2xl px-6 pt-12 pb-6">
+        <h1 className="m-0 font-display text-2xl leading-tight font-bold tracking-tight text-heading sm:text-3xl">
+          Make the world{" "}
+          <span className="aurora-glow font-normal text-accent italic">
+            accessible
+          </span>
+          <br />
+          for everyone.
         </h1>
-        <p className="max-w-xl text-xl leading-relaxed">
-          こんにちは、{SITE_METADATA.author.name}
-          です。このサイトでは、技術的な知見や日々の思考を「読みやすさ」にこだわって発信しています。
+        <p className="mt-3 mb-0 max-w-md font-sans text-sm leading-relaxed text-sub">
+          {SITE_METADATA.author.description}。
+          React・TypeScript・AIエージェントとの協業について書いています。
         </p>
-        <div className="mt-8 flex gap-4">
-          <Link
-            href="/blog"
-            className="rounded-lg bg-bg-dark px-5 py-2.5 font-medium text-fg-dark transition-opacity hover:opacity-90 dark:bg-bg dark:text-fg"
-          >
-            ブログを読む
-          </Link>
-          <Link
-            href="/about"
-            className="rounded-lg border border-fg px-5 py-2.5 font-medium text-fg transition-colors hover:opacity-90 dark:border-fg-dark dark:text-fg-dark"
-          >
-            私について
-          </Link>
-        </div>
-      </section>
+      </header>
 
-      <section>
-        <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-xl font-bold">Latest Articles</h2>
+      <section className="mx-auto max-w-2xl px-6 pt-6 pb-16">
+        <div className="mb-6 flex items-baseline justify-between">
+          <h2 className="m-0 font-display text-xs font-semibold tracking-widest text-faint uppercase">
+            Recent Posts
+          </h2>
           <Link
             href="/blog"
-            className="text-sm font-medium text-link hover:underline dark:text-link-dark"
+            className="font-mono text-[11px] text-link hover:text-link-hover"
           >
-            すべての記事
+            all posts →
           </Link>
         </div>
-        <div className="space-y-10">
-          {allPosts.slice(0, 2).map((post) => (
-            <article key={post.slug}>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="group block text-fg dark:text-fg-dark"
-              >
-                <div className="mb-2 flex items-center gap-3 text-xs">
-                  <FormattedDate dateString={post.date} />
-                  {post.category && (
-                    <span className="rounded px-2 py-0.5">{post.category}</span>
-                  )}
-                </div>
-                <h3 className="mb-2 text-xl font-bold transition-colors hover:text-link hover:underline dark:hover:text-link-dark">
-                  {post.title}
-                </h3>
-                {post.summary && (
-                  <p className="line-clamp-2 leading-relaxed">{post.summary}</p>
-                )}
-              </Link>
-            </article>
-          ))}
-        </div>
+
+        {recent.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            className="mb-3 block rounded-md border border-border-soft bg-card p-6 text-inherit no-underline transition hover:-translate-y-px hover:border-accent/20 hover:bg-card-hover hover:shadow-[0_4px_20px_rgba(94,228,160,0.03)]"
+          >
+            <div className="mb-2 font-mono text-[11px] text-faint">
+              <FormattedDate dateString={post.date} />
+            </div>
+            <h3 className="m-0 mb-2 font-display text-lg leading-snug font-semibold tracking-tight text-heading">
+              {post.title}
+            </h3>
+            {post.summary && (
+              <p className="m-0 mb-3 font-sans text-sm leading-relaxed text-sub">
+                {post.summary}
+              </p>
+            )}
+            {post.category && (
+              <div className="flex flex-wrap gap-1.5">
+                <Tag label={post.category} />
+              </div>
+            )}
+          </Link>
+        ))}
       </section>
     </div>
   );

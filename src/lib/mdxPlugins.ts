@@ -64,7 +64,7 @@ export const mdxOptions = {
       [
         rehypePrettyCode,
         {
-          theme: "nord",
+          theme: "github-dark-high-contrast",
           keepBackground: true,
         },
       ],
