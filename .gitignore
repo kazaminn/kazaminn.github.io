@@ -17,6 +17,7 @@
 /.next/
 /out/
 /dist/
+/.cache/
 
 # production
 /build
@@ -39,3 +40,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+*:Zone.Identifier
