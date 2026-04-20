@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const SOURCE_DIR = path.join(process.cwd(), "contents/images");
+const SOURCE_DIR = path.join(process.cwd(), "_posts/images");
 const TARGET_DIR = path.join(process.cwd(), "public/images");
 
 function syncImages() {
