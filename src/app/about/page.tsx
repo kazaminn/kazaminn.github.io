@@ -37,13 +37,26 @@ const PROJECTS: Project[] = [
     liveDemo: "https://myyomumoji-client.vercel.app/",
   },
   {
+    name: "gittinglish",
+    description:
+      "Git / GitHub の英語に頻出する 85 動詞を、毎日 5 分の間隔反復ドリル (SM-2) で身につけるための学習アプリ。四択 / 自由入力 / 例文穴埋めの 3 モードで、忘れかけのタイミングだけ復習が来ます。語彙は GitHub 公開リポジトリの commit log の頻度分析を参考にしつつ、手で選定しました。",
+    components: [
+      {
+        label: "app",
+        stack: ["React 19", "TypeScript", "Tailwind CSS v4", "Hono", "Better Auth", "Turso"],
+        repo: { label: "gittinglish-vocab-app", href: "https://github.com/kazaminn/gittinglish-vocab-app" },
+      },
+    ],
+    liveDemo: "https://gittinglish.kazamitte.com/",
+  },
+  {
     name: "GitHub-MCP-Proxy",
     description:
       "AI エージェントに GitHub 作業を任せたいけれど、アカウント全体への権限は渡したくない、という課題に応えるためのセルフホスト型 MCP サーバー。エージェントが触れるリポジトリ・操作（read / issues / 書き込み）・ブランチ名・コミットメッセージ形式を絞り込めるので、安心して任せられます。",
     components: [
       {
         label: "server",
-        stack: ["Cloudflare Workers", "TypeScript", "Hono", "Octokit", "OAuth 2.1", "Zod"],
+        stack: ["Cloudflare Workers", "TypeScript", "Hono", "GitHub OAuth App", "Zod"],
         repo: { label: "github-mcp-proxy", href: "https://github.com/kazaminn/github-mcp-proxy" },
       },
     ],
