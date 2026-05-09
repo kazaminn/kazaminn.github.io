@@ -112,9 +112,9 @@ en_core_web_mdという英語の中サイズモデルを使った。
 
 | カテゴリ | 件数 | 動詞 |
 |---|---|---|
-| ok (≥50件) | 59 | （省略） |
+| ok (50件以上) | 59 | （省略） |
 | low_freq (10-50件) | 21 | speed up 49, restrict 49, cover 41, tweak 39, lock 39, suppress 35, describe 31, annotate 27, swap 26, guard 26, reorganize 22, document 21, sanitize 20, scaffold 19, recover 18, debounce 18, throttle 16, automate 16, flatten 14, refactor 13, wire up 10 |
-| very_rare (<10件) | 5 | decouple 6, bootstrap 4, fall back to 4, stub 1, lazy-load 0 |
+| very_rare (10件未満) | 5 | decouple 6, bootstrap 4, fall back to 4, stub 1, lazy-load 0 |
 
 decouple, bootstrap, stub に加え、句動詞の fall back to と lazy-load もコミット文脈ではほとんど（または全く）動詞として認識されていなかった。
 
