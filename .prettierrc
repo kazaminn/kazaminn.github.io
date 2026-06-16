@@ -1,18 +1,23 @@
 {
   "trailingComma": "es5",
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "arrowParens": "always",
   "plugins": [
-    "@trivago/prettier-plugin-sort-imports",
+    "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],
   "importOrder": [
-    "^react$",
-    "^next$",
     "<BUILTIN_MODULES>",
+    "^(next/(.*)$)|^(next$)",
+    "^(react/(.*)$)|^(react$)",
+    "^(react-dom/(.*)$)|^(react-dom$)",
     "<THIRD_PARTY_MODULES>",
-    "^@/[^/]+/(.*)$",
+    "^@kazamitte/(.*)$",
+    "^@/(.*)$",
     "^[./]"
   ],
+  "importOrderTypeScriptVersion": "5.0.0",
   "tailwindStylesheet": "./src/app/globals.css"
 }
