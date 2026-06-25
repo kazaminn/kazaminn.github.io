@@ -42,3 +42,6 @@ yarn-error.log*
 next-env.d.ts
 
 *:Zone.Identifier
+
+# Editor
+**/.vscode
