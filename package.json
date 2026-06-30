@@ -5,6 +5,7 @@
     "node": ">=24.0.0",
     "pnpm": ">=11.7.0"
   },
+  "type": "module",
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "predev": "node scripts/prebuild.mjs && next-image-export-optimizer",
@@ -12,7 +13,8 @@
     "dev": "next dev --turbopack",
     "build": "next build && next-image-export-optimizer",
     "postbuild": "node scripts/postbuild.mjs",
-    "start": "npx serve dist"
+    "start": "npx serve dist",
+    "format": "prettier src --write"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
