@@ -7,10 +7,10 @@
   },
   "packageManager": "pnpm@11.7.0",
   "scripts": {
-    "predev": "node scripts/prebuild.mjs",
+    "predev": "node scripts/prebuild.mjs && next-image-export-optimizer",
     "prebuild": "node scripts/prebuild.mjs",
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build && next-image-export-optimizer",
     "postbuild": "node scripts/postbuild.mjs",
     "start": "npx serve dist"
   },

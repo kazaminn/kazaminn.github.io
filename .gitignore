@@ -22,6 +22,10 @@
 # production
 /build
 
+# optimized image
+/public/images/optimized
+next-image-export-optimizer-hashes.json
+
 # misc
 .DS_Store
 *.pem
