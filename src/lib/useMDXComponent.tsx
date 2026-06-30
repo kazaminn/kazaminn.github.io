@@ -1,6 +1,6 @@
+import Link from "next/link";
 import type { MDXComponents } from "mdx/types";
 import ExportedImage from "next-image-export-optimizer";
-import Link from "next/link";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -28,7 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         alt={alt || ""}
         sizes="(max-width: 800px) 100vw, 800px"
         style={{ width: "100%", height: "auto" }}
-        className="my-8 rounded-xl border border-border shadow-sm dark:border-border-dark"
+        className="dark:border-border-dark my-8 rounded-xl border border-border shadow-sm"
         {...props}
       />
     ),

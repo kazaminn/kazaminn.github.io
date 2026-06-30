@@ -20,7 +20,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
 
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
     const isDark = target === "dark" || (target === "system" && prefersDark);
 

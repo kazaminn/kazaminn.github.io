@@ -64,9 +64,7 @@ async function loadNotoSansJP(text: string): Promise<ArrayBuffer> {
       "Failed to resolve Noto Sans JP font URL from Google Fonts CSS",
     );
   }
-  const fontData = await (
-    await fetchWithRetry(fontUrl, {})
-  ).arrayBuffer();
+  const fontData = await (await fetchWithRetry(fontUrl, {})).arrayBuffer();
 
   fs.mkdirSync(FONT_CACHE_DIR, { recursive: true });
   fs.writeFileSync(cachePath, Buffer.from(fontData));
@@ -81,44 +79,44 @@ export default async function Image(props: Props) {
   const siteTitle = SITE_METADATA.title;
   const author = SITE_METADATA.author.name;
 
-  const uniqueChars = Array.from(new Set((title + siteTitle + author).split(""))).join("");
+  const uniqueChars = Array.from(
+    new Set((title + siteTitle + author).split("")),
+  ).join("");
   const fontData = await loadNotoSansJP(uniqueChars);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "80px",
+        background:
+          "radial-gradient(ellipse 120% 60% at 30% 20%, rgba(94,228,160,0.18) 0%, transparent 60%), radial-gradient(ellipse 100% 50% at 70% 15%, rgba(96,160,232,0.14) 0%, transparent 55%), linear-gradient(135deg, #08090e 0%, #0e1018 100%)",
+        color: "#e4e8f4",
+        fontFamily: "Noto Sans JP",
+      }}
+    >
+      <div style={{ display: "flex", fontSize: 30, color: "#5ee4a0" }}>
+        {siteTitle}
+      </div>
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "80px",
-          background:
-            "radial-gradient(ellipse 120% 60% at 30% 20%, rgba(94,228,160,0.18) 0%, transparent 60%), radial-gradient(ellipse 100% 50% at 70% 15%, rgba(96,160,232,0.14) 0%, transparent 55%), linear-gradient(135deg, #08090e 0%, #0e1018 100%)",
-          color: "#e4e8f4",
-          fontFamily: "Noto Sans JP",
+          fontSize: 68,
+          fontWeight: 700,
+          lineHeight: 1.25,
+          letterSpacing: "-0.02em",
         }}
       >
-        <div style={{ display: "flex", fontSize: 30, color: "#5ee4a0" }}>
-          {siteTitle}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 68,
-            fontWeight: 700,
-            lineHeight: 1.25,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {title}
-        </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#8a90a8" }}>
-          {author}
-        </div>
+        {title}
       </div>
-    ),
+      <div style={{ display: "flex", fontSize: 26, color: "#8a90a8" }}>
+        {author}
+      </div>
+    </div>,
     {
       ...size,
       fonts: [

@@ -4,10 +4,7 @@ import { NAV_ITEMS } from "@/lib/constants";
 
 export function Breadcrumbs({ segments }: { segments: string[] }) {
   return (
-    <nav
-      aria-label="現在位置"
-      className="mb-6 font-mono text-sm text-faint"
-    >
+    <nav aria-label="現在位置" className="mb-6 font-mono text-sm text-faint">
       <ol className="m-0 flex list-none flex-wrap items-center gap-2 p-0">
         <li>
           <Link href="/" className="text-faint">
@@ -16,11 +13,7 @@ export function Breadcrumbs({ segments }: { segments: string[] }) {
         </li>
         {segments.map((s, i) => (
           <li key={i} className="flex items-center gap-2">
-            <ChevronRight
-              size={10}
-              aria-hidden="true"
-              className="opacity-60"
-            />
+            <ChevronRight size={10} aria-hidden="true" className="opacity-60" />
             {i === segments.length - 1 ? (
               <span className="text-sub">{s}</span>
             ) : (

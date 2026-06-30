@@ -25,13 +25,25 @@ const PROJECTS: Project[] = [
     components: [
       {
         label: "frontend",
-        stack: ["React 19", "TypeScript", "Vite", "Tailwind CSS v4", "React Aria"],
-        repo: { label: "myyomumoji-client", href: "https://github.com/kazaminn/myyomumoji-client" },
+        stack: [
+          "React 19",
+          "TypeScript",
+          "Vite",
+          "Tailwind CSS v4",
+          "React Aria",
+        ],
+        repo: {
+          label: "myyomumoji-client",
+          href: "https://github.com/kazaminn/myyomumoji-client",
+        },
       },
       {
         label: "backend",
         stack: ["Hono", "TypeScript", "Firebase Firestore", "Zod"],
-        repo: { label: "myyomumoji-api", href: "https://github.com/kazaminn/myyomumoji-api" },
+        repo: {
+          label: "myyomumoji-api",
+          href: "https://github.com/kazaminn/myyomumoji-api",
+        },
       },
     ],
     liveDemo: "https://myyomumoji-client.vercel.app/",
@@ -43,8 +55,18 @@ const PROJECTS: Project[] = [
     components: [
       {
         label: "app",
-        stack: ["React 19", "TypeScript", "Tailwind CSS v4", "Hono", "Better Auth", "Turso"],
-        repo: { label: "gittinglish-vocab-app", href: "https://github.com/kazaminn/gittinglish-vocab-app" },
+        stack: [
+          "React 19",
+          "TypeScript",
+          "Tailwind CSS v4",
+          "Hono",
+          "Better Auth",
+          "Turso",
+        ],
+        repo: {
+          label: "gittinglish-vocab-app",
+          href: "https://github.com/kazaminn/gittinglish-vocab-app",
+        },
       },
     ],
     liveDemo: "https://gittinglish.kazamitte.com/",
@@ -56,8 +78,17 @@ const PROJECTS: Project[] = [
     components: [
       {
         label: "server",
-        stack: ["Cloudflare Workers", "TypeScript", "Hono", "GitHub OAuth App", "Zod"],
-        repo: { label: "github-mcp-proxy", href: "https://github.com/kazaminn/github-mcp-proxy" },
+        stack: [
+          "Cloudflare Workers",
+          "TypeScript",
+          "Hono",
+          "GitHub OAuth App",
+          "Zod",
+        ],
+        repo: {
+          label: "github-mcp-proxy",
+          href: "https://github.com/kazaminn/github-mcp-proxy",
+        },
       },
     ],
     note: "OSS として公開しています（個人運用のため、公開エンドポイントは提供していません）。",
@@ -137,7 +168,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-8">
-        <h3 className="mb-3.5 font-display text-md font-semibold tracking-widest text-faint uppercase">
+        <h3 className="text-md mb-3.5 font-display font-semibold tracking-widest text-faint uppercase">
           Stack
         </h3>
         <div className="flex flex-wrap gap-1.5">
@@ -153,7 +184,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-8">
-        <h3 className="mb-5 font-display text-md font-semibold tracking-widest text-faint uppercase">
+        <h3 className="text-md mb-5 font-display font-semibold tracking-widest text-faint uppercase">
           Projects
         </h3>
         <dl className="divide-y divide-border-soft border-t border-border-soft">
@@ -184,14 +215,14 @@ export default function AboutPage() {
                     {project.note}
                   </p>
                 )}
-                <ul className="m-0 space-y-3 list-none p-0">
+                <ul className="m-0 list-none space-y-3 p-0">
                   {project.components.map((c) => (
                     <li
                       key={c.label}
                       className="rounded-sm border border-border-soft bg-surface/40 p-3"
                     >
                       <div className="mb-2 flex items-center justify-between gap-3">
-                        <span className="font-mono text-[11px] uppercase tracking-wide text-faint">
+                        <span className="font-mono text-[11px] tracking-wide text-faint uppercase">
                           {c.label}
                         </span>
                         <Link
@@ -223,7 +254,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-16">
-        <h3 className="mb-5 font-display text-md font-semibold tracking-widest text-faint uppercase">
+        <h3 className="text-md mb-5 font-display font-semibold tracking-widest text-faint uppercase">
           Focus
         </h3>
         <dl className="divide-y divide-border-soft border-t border-border-soft">

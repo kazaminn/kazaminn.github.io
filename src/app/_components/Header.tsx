@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -53,7 +54,7 @@ export function Header() {
 
         {/* Mobile hamburger button */}
         <button
-          className="flex items-center justify-center rounded-sm p-2 text-shadow-text transition-colors hover:text-text sm:hidden"
+          className="flex items-center justify-center rounded-sm p-2 transition-colors text-shadow-text hover:text-text sm:hidden"
           aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((prev) => !prev)}

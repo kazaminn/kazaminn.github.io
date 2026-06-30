@@ -1,4 +1,5 @@
 "use client";
+
 import { Display, Moon, Sun } from "react-bootstrap-icons";
 import { useTheme } from "@/lib/themeContext";
 
@@ -15,7 +16,7 @@ export function ThemeToggle() {
     <div
       role="group"
       aria-label="テーマ選択"
-      className="flex items-center gap-1 bg-bg dark:bg-bg-dark p-1 rounded-full border border-border dark:border-border-dark w-fit"
+      className="dark:bg-bg-dark dark:border-border-dark flex w-fit items-center gap-1 rounded-full border border-border bg-bg p-1"
     >
       {THEME_ICON.map(({ value, label, icon: Icon }) => {
         const isActive = mounted && theme === value;
@@ -27,9 +28,9 @@ export function ThemeToggle() {
             onClick={() => setTheme(value)}
             aria-pressed={isActive}
             aria-label={label}
-            className={`group relative p-1.5 rounded-full transition-all outline-none focus-visible:ring-2 focus-visible:ring-link ${
+            className={`group relative rounded-full p-1.5 transition-all outline-none focus-visible:ring-2 focus-visible:ring-link ${
               isActive
-                ? "bg-bg dark:bg-bg-dark shadow-sm text-fg dark:text-fg-dark"
+                ? "dark:bg-bg-dark text-fg dark:text-fg-dark bg-bg shadow-sm"
                 : "text-mute hover:text-fg dark:hover:text-fg-dark"
             }`}
           >
