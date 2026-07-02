@@ -10,7 +10,7 @@ on:
     branches: ["main"]
     paths:
       - "_posts/**"
-      - "app/**"
+      - "src/**"
       - "next.config.ts"
 
   # Allows you to run this workflow manually from the Actions tab
@@ -45,11 +45,8 @@ jobs:
           node-version: "24"
           cache: pnpm
       - name: Setup Pages
-        # next.config.ts で output/distDir/画像設定を自前管理しており、
-        # かつ kazaminn.github.io（ルート配信）で basePath も不要なため
-        # static_site_generator による自動注入は使わない。
-        # ("type": "module" 環境では自動生成される CommonJS の next.config.js が
-        #  ESM 扱いになりビルドが落ちる)
+        # Do not use automatic injection by static_site_generator.
+        # (In a "type": "module" environment, the automatically generated CommonJS next.config.js is treated as ESM, causing the build to fail.)
         uses: actions/configure-pages@v5
       - name: Restore cache
         uses: actions/cache@v4
