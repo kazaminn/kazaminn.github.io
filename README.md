@@ -1,72 +1,97 @@
-# A statically generated blog example using Next.js, Markdown, and TypeScript
+# Kazaminn's blog
 
-This is the existing [blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) plus TypeScript.
+React開発メインの備忘録。Next.jsの静的サイト生成（SSG）で構築し、GitHub Pages（[kazaminn.github.io](https://kazaminn.github.io)）にデプロイしている個人技術ブログ。
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates) feature using Markdown files as the data source.
+記事は`_posts/`配下のMarkdownファイルとして管理し、ファイルを追加するだけで新しい記事ページが生成される。
 
-The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
+## 技術スタック
 
-To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
+- フレームワーク: [Next.js 16](https://nextjs.org/)（App Router/`output: "export"`によるSSG）
+- 言語: TypeScript/React 19
+- スタイリング: [Tailwind CSS v4](https://tailwindcss.com/) + `@tailwindcss/typography`
+- コンテンツ: Markdown + フロントマター（[gray-matter](https://github.com/jonschlinkert/gray-matter)）を[next-mdx-remote-client](https://github.com/ipikuka/next-mdx-remote-client)でMDXとしてレンダリング
+- Markdown拡張: [remark-gfm](https://github.com/remarkjs/remark-gfm)/シンタックスハイライトに[rehype-pretty-code](https://rehype-pretty.pages.dev/)（Shiki）
+- 画像最適化: [next-image-export-optimizer](https://github.com/Niels-IO/next-image-export-optimizer)（custom loaderによるエクスポート時の最適化）
+- パッケージ管理: pnpm（Node.js >= 24）
+- ホスティング: GitHub Pages（GitHub Actionsで自動デプロイ）
 
-## Demo
+## 主な機能
 
-[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
+- Markdownファイルベースのブログ記事管理（`_posts/*.md`）
+- ダークモード対応（FOUCを防ぐinline script付き）
+- 記事ごとのOG画像を動的生成（`opengraph-image.tsx`）
+- 見出しへの自動ID付与・記事内画像の寸法自動計算（`src/lib/mdxPlugins.ts`）
+- パンくずリスト/タグ表示などのコンポーネント
 
-## Deploy your own
+## ディレクトリ構成
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
-
-### Related examples
-
-- [AgilityCMS](/examples/cms-agilitycms)
-- [Builder.io](/examples/cms-builder-io)
-- [ButterCMS](/examples/cms-buttercms)
-- [Contentful](/examples/cms-contentful)
-- [Cosmic](/examples/cms-cosmic)
-- [DatoCMS](/examples/cms-datocms)
-- [DotCMS](/examples/cms-dotcms)
-- [Drupal](/examples/cms-drupal)
-- [Enterspeed](/examples/cms-enterspeed)
-- [Ghost](/examples/cms-ghost)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent.ai](/examples/cms-kontent-ai)
-- [MakeSwift](/examples/cms-makeswift)
-- [Payload](/examples/cms-payload)
-- [Plasmic](/examples/cms-plasmic)
-- [Prepr](/examples/cms-prepr)
-- [Prismic](/examples/cms-prismic)
-- [Sanity](/examples/cms-sanity)
-- [Sitecore XM Cloud](/examples/cms-sitecore-xmcloud)
-- [Sitefinity](/examples/cms-sitefinity)
-- [Storyblok](/examples/cms-storyblok)
-- [TakeShape](/examples/cms-takeshape)
-- [Tina](/examples/cms-tina)
-- [Umbraco](/examples/cms-umbraco)
-- [Umbraco heartcore](/examples/cms-umbraco-heartcore)
-- [Webiny](/examples/cms-webiny)
-- [WordPress](/examples/cms-wordpress)
-- [Blog Starter](/examples/blog-starter)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example blog-starter blog-starter-app
+```text
+.
+├── _posts/              # ブログ記事（Markdown）と記事内画像
+├── public/              # 静的アセット（画像・favicon など）
+├── scripts/
+│   ├── prebuild.mjs     # ビルド前処理
+│   └── postbuild.mjs    # OG 画像のリネーム・HTML 参照の書き換え
+├── src/
+│   ├── app/             # App Router（ページ・レイアウト・コンポーネント）
+│   │   ├── blog/[slug]/ # 記事詳細ページ・OG 画像生成
+│   │   └── _components/ # UI コンポーネント
+│   ├── lib/             # 記事取得 API・MDX プラグイン・テーマ管理
+│   └── interfaces/      # 型定義（Post / Author）
+└── next.config.ts       # SSG / 画像最適化などの設定
 ```
 
-```bash
-yarn create next-app --example blog-starter blog-starter-app
-```
+## セットアップ
 
 ```bash
-pnpm create next-app --example blog-starter blog-starter-app
+pnpm install
 ```
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+### 開発サーバー
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+```bash
+pnpm dev
+```
 
-# Notes
+[http://localhost:3000](http://localhost:3000)で開発サーバーが起動する。
 
-`blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
+### ビルド
+
+```bash
+pnpm build
+```
+
+`prebuild` → `next build` + 画像最適化 → `postbuild`の順で実行され、静的ファイルが`dist/`出力される。
+
+ローカルで出力結果したいとき:
+
+```bash
+pnpm start
+```
+
+or
+
+```bash
+npx serve dist
+```
+
+## 記事の追加
+
+`_posts/`にMarkdownファイルを追加する。フォーマットは以下の通り。
+
+```text
+---
+title: 記事タイトル
+date: ISO 8601形式の現在日時
+category: カテゴリ
+summary: 記事の概要
+---
+
+本文（Markdown / GFM 対応）
+```
+
+記事内の画像は`_posts/images/`または`public/`に配置し、Markdownからは`./images/...`のように参照します（ビルド時に`/images/...`へ変換される）。
+
+## デプロイ
+
+`main`ブランチへのpush（`_posts/**`・`src/**`・`next.config.ts`の変更）で、`.github/workflows/nextjs.yml`が実行されGitHub Pagesに自動デプロイされる。Actionsタブから手動実行も可能。
