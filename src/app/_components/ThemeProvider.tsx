@@ -1,20 +1,25 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { STORAGE_KEY, Theme, ThemeContext } from "@/lib/themeContext";
+import {
+  STORAGE_KEY,
+  type Theme,
+  THEME_ATTR,
+  ThemeContext,
+} from "@/lib/themeContext";
 
-interface ThemeProviderProps {
+type ThemeProviderProps = {
   children: React.ReactNode;
-}
+};
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<Theme>("system");
 
   const applyTheme = useCallback((target: Theme) => {
     if (typeof window === "undefined") return;
 
-    if (window.updateDOM) {
+    if (typeof window.updateDOM === "function") {
       window.updateDOM();
       return;
     }
@@ -22,10 +27,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
-    const isDark = target === "dark" || (target === "system" && prefersDark);
+    const theme =
+      target === "system" ? (prefersDark ? "dark" : "light") : target;
 
-    document.documentElement.classList.toggle("dark", isDark);
-    document.documentElement.setAttribute("data-mode", target);
+    document.documentElement.setAttribute(THEME_ATTR, theme);
   }, []);
 
   useEffect(() => {
@@ -55,6 +60,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 
 export default ThemeProvider;

@@ -1,15 +1,20 @@
 "use client";
 
 declare global {
+  // Global augmentation requires `interface` for declaration merging; `type` can't merge here.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Window {
     updateDOM: () => void;
   }
 }
 
-export function NoFOUCScript(storageKey: string) {
-  const SYSTEM = "system";
-  const DARK = "dark";
-  const LIGHT = "light";
+const THEME_COLORS: Record<string, string> = {
+  light: "#f8fafc",
+  dark: "#0f172b",
+};
+
+export function NoFOUCScript(storageKey: string, attr = "data-mode") {
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
 
   const disableTransitions = () => {
     const style = document.createElement("style");
@@ -21,10 +26,9 @@ export function NoFOUCScript(storageKey: string) {
     };
   };
 
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-
-  const setThemeColor = (isDark: boolean) => {
-    const color = isDark ? "#0f172b" : "#f8fafc";
+  const setThemeColor = (theme: string) => {
+    const color = THEME_COLORS[theme];
+    if (!color) return;
     let meta = document.querySelector('meta[name="theme-color"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -37,20 +41,17 @@ export function NoFOUCScript(storageKey: string) {
   window.updateDOM = () => {
     const restore = disableTransitions();
 
-    let mode = SYSTEM;
+    let mode = "system";
     try {
-      mode = localStorage.getItem(storageKey) || SYSTEM;
-    } catch {}
+      mode = localStorage.getItem(storageKey) ?? "system";
+    } catch {
+      // localStorage unavailable (SSR / privacy mode); keep default
+    }
 
-    const systemMode = media.matches ? DARK : LIGHT;
-    const resolved = mode === SYSTEM ? systemMode : mode;
-    const isDark = resolved === DARK;
+    const theme = mode === "system" ? (media.matches ? "dark" : "light") : mode;
+    document.documentElement.setAttribute(attr, theme);
+    setThemeColor(theme);
 
-    const root = document.documentElement;
-    root.classList.toggle(DARK, isDark);
-    root.setAttribute("data-mode", mode);
-
-    setThemeColor(isDark);
     restore();
   };
 
