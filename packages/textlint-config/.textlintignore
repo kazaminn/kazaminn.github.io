@@ -1,0 +1,10 @@
+# Default ignores shipped with the shared config — build output / generated.
+# node_modules and .git are always ignored by textlint itself.
+**/dist/**
+**/out/**
+**/build/**
+**/.next/**
+**/.cache/**
+**/coverage/**
+**/storybook-static/**
+**/public/**

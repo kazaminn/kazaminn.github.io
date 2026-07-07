@@ -1,0 +1,32 @@
+{
+  "name": "@kazamitte/markdown-plugin",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Framework-agnostic remark/rehype plugins for the design-system monorepo (no React, no MDX coupling)",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "image-size": "^2.0.2",
+    "rehype-raw": "^7.0.0",
+    "unist-util-visit": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^20.14.8",
+    "typescript": "^5.5.2"
+  }
+}

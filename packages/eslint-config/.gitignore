@@ -1,0 +1,77 @@
+# ===== OS =====
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# ===== Editor =====
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ===== AI Tools =====
+.claude/memory/
+.claude/todos/
+.claude/settings.local.json
+.agents/*
+
+# ===== Node =====
+node_modules/
+
+# npm
+.npm
+package-lock.json
+
+# pnpm
+.pnpm-store/
+.pnpm-debug.log
+
+# ===== Build outputs =====
+dist/
+build/
+out/
+.output/
+.cache/
+
+# ===== Env / secrets =====
+.env
+.env.*
+!.env.sample
+!.env.example
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== TypeScript =====
+*.tsbuildinfo
+
+# ===== Turbo =====
+.turbo/
+
+# ===== Test coverage =====
+coverage/
+
+# ===== Turso / SQLite =====
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+# ===== Cloudflare Workers =====
+.wrangler/
+.dev.vars
+
+# ===== Vercel =====
+.vercel/
+
+# ===== Playwright =====
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# ===== Storybook =====
+storybook-static/
