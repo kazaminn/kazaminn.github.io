@@ -17,5 +17,13 @@
     "^[./]"
   ],
   "importOrderTypeScriptVersion": "5.0.0",
-  "tailwindStylesheet": "./src/app/globals.css"
+  "tailwindStylesheet": "./src/app/globals.css",
+  "overrides": [
+    {
+      "files": ["*.json", "*.jsonc", "*.json5"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
 }
