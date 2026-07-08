@@ -8,13 +8,14 @@
   "type": "module",
   "packageManager": "pnpm@11.7.0",
   "scripts": {
-    "predev": "node scripts/prebuild.mjs && next-image-export-optimizer",
-    "prebuild": "node scripts/prebuild.mjs",
-    "dev": "next dev --turbopack",
     "build": "next build && next-image-export-optimizer",
+    "build:packages": "pnpm --filter @kazamitte/markdown-plugin build",
+    "dev": "next dev --turbopack",
+    "format": "prettier src --write",
     "postbuild": "node scripts/postbuild.mjs",
-    "start": "npx serve dist",
-    "format": "prettier src --write"
+    "prebuild": "node scripts/prebuild.mjs",
+    "predev": "node scripts/prebuild.mjs && next-image-export-optimizer",
+    "start": "npx serve dist"
   },
   "dependencies": {
     "@kazamitte/markdown-plugin": "workspace:*",
