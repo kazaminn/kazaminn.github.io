@@ -42,7 +42,7 @@ npm i -D prettier @trivago/prettier-plugin-sort-imports prettier-plugin-tailwind
 
 ## Tailwindをv3 -> v4にアップグレード
 
-ここでTailwindCSSをv4にアップグレードすることにします。Tailwind公式の[Upgrade guide](https://tailwindcss.com/docs/upgrade-guide)でマイグレーションツールが紹介されていたので、使います。
+ここでTailwindCSSをv4へアップグレードすることにします。Tailwind公式の[Upgrade guide](https://tailwindcss.com/docs/upgrade-guide)でマイグレーションツールが紹介されていたので、使います。
 
 ```bash
 npx @tailwindcss/upgrade
@@ -52,17 +52,17 @@ Tailwindの設定ファイルの内容がグローバルCSSに移行されまし
 
 さっそく開発サーバーがエラーを吐きました。
 
-```
+```text
 CssSyntaxError: tailwindcss: C:\path\to\src\app\_components\markdown-styles.module.css:1:1: Cannot apply unknown utility class `text-lg`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
 ```
 
 `@reference`をミッシングしているらしいのでCSS Modulesファイルの冒頭に参照をはります。
 
-```
+```css
 @reference "tailwindcss";
 ```
 
-さらに、PrettierのTailwindプラグインが動作していないことにも気付きました。[プラグインのREADME](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)を見たら、Tailwind v4の場合は`tailwindStylesheet`キーでCSSのエントリーポイントを特定しないといけないと書かれていました。
+さらに、PrettierのTailwindプラグインが動作していないことにも気付きました。[プラグインのREADME](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)を見たら、Tailwind v4の場合は`tailwindStylesheet`キーでCSSのエントリーポイントを特定する必要があると書かれていました。
 
 最終的に`.prettierrc`はこんな感じ。
 
@@ -89,7 +89,7 @@ CssSyntaxError: tailwindcss: C:\path\to\src\app\_components\markdown-styles.modu
 
 ## SSGでビルドしてGitHub Pagesにデプロイする
 
-結局サンプルをいったん更地にしてコンポーネントを作り直し、ダークモードも自分で実装してみたのですが、通常のReactアプリとは異なりUIがフリッカ―する問題があるので、少し手こずりましたね。その話は別記事にします。
+結局サンプルをいったん更地にしてコンポーネントを作り直し、ダークモード実装も含めて自分で実装してみたのですが、通常のReactアプリと異なりUIがフリッカ―し、その問題に少し手こずりましたね。その話は別記事にします。
 
 SSGでビルドするにはnext.config.jsを以下のように設定しておきます。
 

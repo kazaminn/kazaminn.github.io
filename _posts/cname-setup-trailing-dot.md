@@ -20,7 +20,7 @@ Cloudflare Pagesのカスタムドメインを追加した。（注: スクシ�
 
 Cloudflare側のカスタムドメインのstatusがactiveにならないので不振に思い、WSLターミナルで`dig`コマンドを叩いた（Windowsなら`nslookup`コマンド）。
 
-```
+```text
 ;; ANSWER SECTION:
 my-app.example.com.    3387    IN    CNAME    my-app.pages.dev.example.com.
 ```
@@ -44,7 +44,7 @@ DNSのゾーンファイルでは、末尾に`.`を持つホスト名は**完全
 
 さくらのコントロールパネルで、末尾に`.`を1文字足して、数分ほど待ってから`dig`を叩く。
 
-```
+```text
 ;; ANSWER SECTION:
 my-app.example.com.    300    IN    CNAME    my-app.pages.dev.
 ```

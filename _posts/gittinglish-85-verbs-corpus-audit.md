@@ -6,7 +6,7 @@ category: "Technical"
 summary: "ハンドピックした git コミット用の英動詞リスト85個は、本当にOSS現場で使われているのか。主要7リポジトリ・約12万件のコミットで検証してみた。"
 ---
 
-# ハンドピックした85動詞を、実コーパスで検証してみた
+## ハンドピックした85動詞を、実コーパスで検証してみた
 
 英語学習アプリ用に、gitコミットメッセージに出てくる動詞をClaude Opus 4.6の手を借りて自分の主観で選定した。
 
@@ -58,11 +58,11 @@ summary: "ハンドピックした git コミット用の英動詞リスト85個
 ## 英文の解析
 
 Pythonの自然言語処理ライブラリ
-[spaCy](https://spacy.io/)を用いて英文の品詞タグ付け・依存構造解析を行った。
+[spaCy](https://spacy.io/)を用いて英文の品詞タグ付け・依存構造を解析した。
 
 en_core_web_mdという英語の中サイズモデルを使った。
 
-テキストの文法構造タグが付与され、単語の品詞を判別したり、文の構造から「主動詞は何か」「その単語は名詞か動詞か」を判別できる。
+テキストの文法構造タグが付与され、単語の品詞を判別したり、文の構造から主動詞や単語が名詞か動詞かを判別できる。
 
 - Lemma: 単語の原形。つまりadded/addingならaddが入る
 - POS: 品詞。[UPOS](https://universaldependencies.org/u/pos/)にリストされているもの
@@ -171,11 +171,14 @@ use, make, allow, avoidといった汎用的な単語が外れていたのは、
 
 具体的な修正案。「追加」リストにあるものは取り入れるべきだろう。
 
-- 追加: use, allow, avoid, show, make, build, run, include, check, skip, apply, upgrade, generate
-- 追加（句動詞）: comment out, turn on/off, opt in/out, shut down, pick up
+- 追加: use, allow, avoid, show
+- 追加: make, build, run, include
+- 追加: check, skip, apply, upgrade
+- 追加: generate
+- 追加（句動詞）: comment out, turn on/off; opt in/out, shut down, pick up
 - 降格or削除: decouple, bootstrap, stub, lazy-load（実コーパスで動詞として現れない）
 - 修正: lazy-load → load、fall back to → fall back（spaCyが動詞構造として認識する書き方へ）
 
 さらに、例文や語義の妥当性、つまり、動詞が文脈の中でどう使われるか？に関しては未検証だし、日本語訳もニュアンスを正しく反映できているかも未検証なので、実用性を高めるにはさらなる検証が必要と思われる。
 
-とはいえ、有料教材レベルのものを作れるわけがないので、オーバーエンジニアリング的なことはしないほうがよさそうだし、自分で使ってみて面白いか、身につくかどうか、という体験を得ることが次のステップになるかもしれない。
+とはいえ、有料教材レベルのものを作れるわけがないので、オーバーエンジニアリング的なことはしないほうがよさそうだ。自分で使ってみて実際に面白く、身につくかどうかという体験を得ることが次のステップになるかもしれない。

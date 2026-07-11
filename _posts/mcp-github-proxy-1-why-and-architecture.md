@@ -6,8 +6,6 @@ category: "Technical"
 summary: "公式 GitHub Connector があるのに自前 MCP サーバーを Cloudflare Workers で立てた理由と、全体アーキテクチャ・設定モデルの設計判断について。"
 ---
 
-# 自分用のMCP GitHub Proxyを作った話 (1) なぜ作ったか・全体構成
-
 Claude.aiのチャットUIからGitHubにIssueを立てたい。コメントを書きたい。リポのファイルを読みたい。
 
 そう思って公式のGitHub統合を使ってみると、出来ることが想像より少ない。書き込み系は全滅。読み込みすらブラウザで開けば見える内容が取れない。それで自前のMCPサーバーをCloudflare Workersに立てた、という話である。地味なworkers.devのエンドポイントで、現状は私一人しか繋いでいない。
@@ -26,14 +24,14 @@ Claude.aiのチャットUIからGitHubにIssueを立てたい。コメントを�
 話を進める前に、Claude.ai周辺に存在するGitHub接続を整理しておく。私が確認した範囲で3系統ある。
 
 | 接続 | 利用面 | 出来ること |
-| ------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| ------------------------ | -------------------------------- | ----------------------------------------------------------------------------------------- |
 | GitHub統合 (公式) | Claude.aiのチャット / Project | 指定したブランチのファイルを名前と内容だけスナップショット同期 |
 | GitHub App (Anthropic製) | Claude Code Web (claude.ai/code) | 専用GitHubプロキシとGitHub App経由でclone / push / PR / コメント / Auto-fixまで一通り可能 |
 | Custom MCP Connector | Claude.aiのチャット | 自前で立てたMCPサーバーを繋ぐ |
 
-公式GitHub統合は ([Claude Help Centerのドキュメント](https://support.claude.com/en/articles/10167454-using-the-github-integration)によると) ファイルの名前と内容をbranch単位でsyncする仕組みで、commit履歴やPR、その他メタデータは取得しない。書き込み系の操作はない。
+公式GitHub統合は ([Claude Help Centerのドキュメント](https://support.claude.com/en/articles/10167454-using-the-github-integration)によると) ファイルの名前と内容をbranch単位でsyncする仕組みであり、commit履歴やPR、その他メタデータは取得しない。書き込み系の操作はない。
 
-Claude Code Web (claude.ai/code) ではAnthropic製のGitHub Appがcontents/issues/pull requestsにread/write権限を持っており、専用のGitHubプロキシと組み合わせることでpushもPR作成もAuto-fixも普通にできる。ちなみに`gh` CLIはクラウド環境のデフォルトイメージには入っておらず、必要ならセットアップスクリプトで`apt install gh`する前提になっている。いずれにせよこれはClaude Code Webの中での話で、Claude.aiのチャットUIからは触れない。
+Claude Code Web (claude.ai/code) ではAnthropic製のGitHub Appがcontents/issues/pull requestsにread/write権限を持っており、専用のGitHubプロキシと組み合わせることでpush、PR作成、Auto-fixなど普通にできる。ちなみに`gh` CLIはクラウド環境のデフォルトイメージには入っておらず、必要ならセットアップスクリプトで`apt install gh`する前提になっている。いずれにせよこれはClaude Code Webの中での話で、Claude.aiのチャットUIからは触れない。
 
 私はClaude.aiのチャットUIで作業をしたい。そこでGitHubに書き込みたい。これを満たす公式の手段は、現状ない。
 
@@ -43,7 +41,7 @@ Claude Code Web (claude.ai/code) ではAnthropic製のGitHub Appがcontents/issu
 
 結論から言うと、これも失敗する。PublicリポジトリのREADMEですら、ヘッダのナビゲーションとフッターしか拾えない。GitHubのWebページはJSレンダリングや動的なMarkdown生成が入っており、汎用fetcherでは本文が取れない。raw URLに書き直そうとしても、ユーザーが直接貼ったURLでない限りfetcherのセーフガードに引っかかって取得できない。
 
-ためしに`https://github.com/anthropics/claude-code/blob/main/README.md`をWebFetchで取得すると、ナビゲーションリンクと「You can't perform that action at this time.」までは取れるが、Claude Codeの説明本文 (Claude Code is an agentic coding tool that lives in your terminal...) は影も形もない。
+ためしに`https://github.com/anthropics/claude-code/blob/main/README.md`をWebFetchで取得すると、ナビゲーションリンクと「You can't perform that action at this time.」までは取れるが、Claude Codeの説明本文 (Claude Code is an agentic coding tool that lives in your terminal...) は一切見当たらない。
 
 Privateリポは言うまでもなく認証で弾かれる。
 
@@ -65,7 +63,7 @@ GitHubのラベルは、放置するとあっという間に増える。エー�
 
 ### 4. audit trailを残したい
 
-「このコミットを書いたのはどのモデルか」「このIssueを立てたのはOpusかSonnetかCodexか」が、後から見返せる状態にしたい。トレーラーやフッターでモデル名を自己申告させる仕組みを、ツール呼び出しの引数として組み込みたい。
+「このコミットを書いたのはどのモデルか」「このIssueを立てたのはOpus/Sonnet/Codexのどれか」が、後から見返せる状態にしたい。トレーラーやフッターでモデル名を自己申告させる仕組みを、ツール呼び出しの引数として組み込みたい。
 
 これらすべてを満たすには、Custom MCP Connectorを自前で立てるしかない。
 
@@ -74,7 +72,7 @@ GitHubのラベルは、放置するとあっという間に増える。エー�
 採用したスタックはこうなった。
 
 | レイヤ | 採用 | 役割 |
-| -------------- | ---------------------------------------- | ------------------------------------------- |
+| -------------- | ------------------------------------- | ---------------------------------------- |
 | ランタイム | Cloudflare Workers | エッジで動くJS / TSランタイム |
 | ルーティング | Hono | Workersと相性のよい軽量Webフレームワーク |
 | OAuth | workers-oauth-provider | OAuth 2.1サーバー実装ライブラリ |
@@ -111,11 +109,11 @@ upstreamであるGitHubから受け取ったトークンをMCPクライアント
 
 設定は`ghmcp.config.ts`としてリポジトリに同梱し、`wrangler deploy`時にバンドルする。KVから動的に読み込む方式は早い段階で廃止した。理由は単純で、設定の更新とdeployが分離していると、どの設定で動いているかが不透明になるからだ。
 
-「設定を更新する = deployする」と決めれば、gitの履歴がそのまま設定変更履歴になる。`ghmcp.config.ts`をgit管理し、公開用の`ghmcp.config.example.ts`をリポジトリに置く運用に落ち着いた。
+「設定を更新する = deployする」と決めれば、gitの履歴がそのまま設定変更履歴となり、`ghmcp.config.ts`をgit管理し、公開用の`ghmcp.config.example.ts`をリポジトリへ置く運用に落ち着いた。
 
 設定の解決順序は3段マージにしている。
 
-```
+```text
 variables.ts (VARIABLES)         ← OSS 土台として配布される不変のベースライン定数群
   ↓ 上書き
 ghmcp.config.ts defaults         ← 自分の環境固有のデフォルト

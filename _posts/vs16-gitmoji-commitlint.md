@@ -1,12 +1,10 @@
 ---
 slug: "vs16-gitmoji-commitlint"
-title: "CommitLintでの絵文字 VS16対策メモ"
+title: "VS16 (Variation Selector-16) commitlint対策メモ"
 date: "2026-04-20T02:30:00+09:00"
 category: "Technical"
 summary: "VS16をトリムして比較する方式を採用した。"
 ---
-
-# VS16 (Variation Selector-16) commitlint対策メモ
 
 OSSプロジェクトでは、コミットメッセージを書くとき`feat:`などのプレフィックスがついていることが多い。視認性をよくするために絵文字をつけることもよく行われる。[gitmoj](https://gitmoji.dev/)など。
 
@@ -25,7 +23,7 @@ VS16が必要な絵文字 (定義側にVS16を付ける):
 
 VS16付き入力 (`🛠️ fix`) とVS16なし入力 (`🛠 fix`) は文字列としては別物。`String.startsWith()`や`===`でfalseになる。
 
-結果、Lintで「絵文字は同じに見えるのに通らない」という謎現象が起きる。
+結果、Lintで「絵文字は見た目が同じなのに通らない」という謎現象が起きる。
 
 ## 解決策：
 

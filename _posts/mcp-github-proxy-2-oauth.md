@@ -6,8 +6,6 @@ category: "Technical"
 summary: "Cloudflare Workers 上で GitHub OAuth App を使って MCP サーバーを動かす実装の OAuth まわり。なぜ OAuth App を選び、GitHub Apps の方が向いていたと反省するに至ったかまで。"
 ---
 
-# 自分用のMCP GitHub Proxyを作った話 (2) GitHub OAuth AppとOAuthフロー
-
 [前回](./mcp-github-proxy-1-why-and-architecture)は「なぜ自前のMCP GitHub Proxyを作ったのか」「全体構成」まで書いた。今回はOAuthまわりを掘り下げる。
 
 - (1) なぜ作ったか・全体構成
@@ -17,7 +15,7 @@ summary: "Cloudflare Workers 上で GitHub OAuth App を使って MCP サーバ�
 
 ## GitHub OAuth Appを選んだ理由 (と反省)
 
-シンプルにCloudflare公式テンプレ`cloudflare/ai/demos/remote-mcp-github-oauth`のボイラープレートを使ったので、OAuth App前提で作った。ただOAuth Appは`repo` scopeを要求した時点でreadもwriteも両方ついてくる仕様で、権限が粗い。そこで「アプリ側で独自にパーミッション管理を組み込む」方針で進めた。第3回で書く「3-tier permission」や「branch-level permission」はこの制約の裏返しで生まれた設計だ。
+シンプルにCloudflare公式テンプレ`cloudflare/ai/demos/remote-mcp-github-oauth`のボイラープレートを使ったので、OAuth App前提で作った。ただOAuth Appは`repo` scopeを要求した時点でreadとwriteの両方ついてくる仕様で、権限が粗い。そこで「アプリ側で独自にパーミッション管理を組み込む」方針で進めた。第3回で書く「3-tier permission」や「branch-level permission」はこの制約の裏返しで生まれた設計だ。
 
 後でGitHub公式ドキュメント ([Differences between GitHub Apps and OAuth apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps)) を読んだら、権限を細かく絞れる (fine-grained permissions) GitHub Appsの方が向いている、とGitHub自身がはっきり書いていた。今からやり直すならGitHub Appsだ。動いているものを差し替えるROIは今のところ見えていない。
 
@@ -27,7 +25,7 @@ OAuthまわりを自分で書き切るのはつらい。幸いCloudflareがOSS�
 
 このライブラリが面白いのは、**MCPサーバーを「OAuthクライアントかつOAuthサーバー」の二重構造として扱う**点だ。
 
-```
+```text
 [Claude.ai (MCP client)]
     ↕  OAuth 2.1 (Worker が server 役)
 [MCP GitHub Proxy (Cloudflare Worker)]
@@ -43,7 +41,7 @@ OAuthまわりを自分で書き切るのはつらい。幸いCloudflareがOSS�
 - 下側 (GitHub向け): authorization code grantの実装、token交換、stateパラメータ検証
 - 二役の接続: GitHubから受け取ったtokenをMCP clientに**直接は渡さず**、Workerが自前の短命tokenを発行して対応付けをKVに保管
 
-一番大事なのは最後の点だ。GitHubの生トークンをClaude.aiに渡すと、Anthropic側のログや通信経路に生トークンが流れる可能性が出る。そうしない設計になっているおかげで、漏れたとしても被害範囲がWorkerの自前トークンで留まる。
+一番大事なのは最後の点だ。GitHubの生トークンをClaude.aiに渡すと、Anthropic側のログや通信経路に生トークンが流れてしまう可能性がある。そうしない設計になっているおかげで、漏れたとしても被害範囲がWorkerの自前トークンで留まる。
 
 ## GitHub OAuth Appセットアップ
 
@@ -51,7 +49,7 @@ OAuthまわりを自分で書き切るのはつらい。幸いCloudflareがOSS�
 
 ### OAuth Appを登録する
 
-[github.com/settings/developers](https://github.com/settings/developers)の**OAuth Apps**からNew OAuth Appで登録する。入れる項目：
+[github.com/settings/developers](https://github.com/settings/developers)の**OAuth Apps**からNew OAuth Appで登録する。入れるべき項目は以下の通りである。
 
 - **Application name**: 何でも良い
 - **Homepage URL**: Cloudflare Workersのデプロイ先URL (例: `https://<worker-name>.<account>.workers.dev`)
@@ -65,7 +63,7 @@ scopeは`repo`を選択する。理由は前述のとおりで、GitHub側にrea
 
 scopeはauthorizeエンドポイントのクエリパラメータで指定する。
 
-```
+```text
 https://github.com/login/oauth/authorize?client_id=...&scope=repo
 ```
 
@@ -132,7 +130,7 @@ workers-oauth-providerのおかげで、自分で書かないといけないの�
 KVに保管するものは次の2層に分かれる。
 
 | 層 | キー | 値 | 用途 |
-| ------------- | ------------------------------------ | ---------------------------------------------------------------- | ------------------------------- |
+| ------------ | ---------------------------------- | -------------------------------------------------------------- | ----------------------------- |
 | MCP client側 | Worker発行の自前token (のハッシュ) | client metadata + GitHub access tokenへの参照 | Claude.aiからのリクエスト認証 |
 | GitHub側 | session / oauth state用キー | GitHub access token (暗号化済み) + login / email等のuser props | WorkerがGitHub APIを叩くとき |
 
