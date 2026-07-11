@@ -12,7 +12,6 @@ Udemyなどの教材でも講師がブランチを切る場面がよくありま
 
 ## ブランチを作成する（＝ブランチを切る）
 
-
 ```bash
 git switch -c feature-branch
 ```
@@ -23,9 +22,9 @@ git switch -c feature-branch
 git checkout -b feature-branch
 ```
 
-`git checkout`コマンドは、ブランチ切り替え以外にもファイル復元など複数の機能があります。分かりづらく操作ミスにつながることから Git 2.23 (2019.8) で `switch`と`restore`が追加されました。
+`git checkout`コマンドは、ブランチ切り替え以外にもファイル復元など複数の機能があります。分かりづらく操作ミスにつながることからGit 2.23 (2019.8) で`switch`と`restore`が追加されました。
 
-なので新しく身につける習慣としては `switch` コマンドをおすすめします。
+なので新しく身につける習慣としては`switch`コマンドをおすすめします。
 
 ## 作業してコミット＆プッシュ
 
@@ -42,9 +41,9 @@ git commit -m "ユーザー認証機能を追加"
 git push origin feature-branch
 ```
 
-これで GitHub 上にブランチが作成され、PR を作成できる状態になります。
+これでGitHub上にブランチが作成され、PRを作成できる状態になります。
 
-個人開発でPRを省略して進める場合はいったん `main` に戻ってからマージします。
+個人開発でPRを省略して進める場合はいったん`main`に戻ってからマージします。
 
 ```bash
 git switch main
@@ -55,11 +54,11 @@ git merge feature-branch
 
 リモートにプッシュしてプルリクエストを作成する方法は複数あります。
 
-- GitHub サイト上でプルリクエストを作成する
-- VS Codeの拡張機能 GitHub Pull Requests を使う
+- GitHubサイト上でプルリクエストを作成する
+- VS Codeの拡張機能GitHub Pull Requestsを使う
 - GitHub CLIを使う
 
-GitHub サイト上で操作するかVS Codeの機能を使うのが安全かなと思いますが、GitHub CLIを使う場合はこのようにします。
+GitHubサイト上で操作するかVS Codeの機能を使うのが安全かなと思いますが、GitHub CLIを使う場合はこのようにします。
 
 ```bash
     gh pr create --title "ユーザー認証機能の追加" \
@@ -67,7 +66,7 @@ GitHub サイト上で操作するかVS Codeの機能を使うのが安全かな
              --base main --head feature-auth
 ```
 
-レビュー後 `main`にマージします。`PULL-REQUEST`は、プルリクエストの番号またはURL、ヘッドブランチを入れます。
+レビュー後`main`にマージします。`PULL-REQUEST`は、プルリクエストの番号またはURL、ヘッドブランチを入れます。
 
 ## ローカルを更新する
 
@@ -84,20 +83,20 @@ git pull origin main
 
 最近のAIを活用した開発では、自分がタスクを進めている間に、AIに実験的なコードを作成させてテストする、といった使い方ができます。
 
-たとえば、`feature-fix` ブランチを `../fix-directory` に展開して作成するには以下のようにします。
+たとえば、`feature-fix`ブランチを`../fix-directory`に展開して作成するには以下のようにします。
 
 ```bash
 git worktree add ../fix-directory -b feature-fix
 ```
 
-注意点としては、`.gitignore` で除外されているファイル（`node_modules` や`.env`など）はコピーされないので、手動でコピーあるいはパッケージを再インストールする必要があります。
+注意点としては、`.gitignore`で除外されているファイル（`node_modules`や`.env`など）はコピーされないので、手動でコピーあるいはパッケージを再インストールする必要があります。
 
 ## 個人開発では「ブランチを切ってマージ」でも良し
 
 ここまでチーム開発を意識したgitの使い方を紹介してきましたが、個人開発でプルリクエストを介さず、もっとシンプルに進めたい場合は、ローカルだけで完結させることも可能です。
 
 1. ブランチを作成して作業
-2. `main` に戻る： `git switch main`
+2. `main`に戻る： `git switch main`
 3. マージする： `git merge feature-auth`
 
 細かい変更までいちいちブランチを切る必要はないかと思うのですが、学習の過程を記録するうえでは、機能単位や開発フェーズ単位でグルーピングしておくとわかりやすいです。

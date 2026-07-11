@@ -42,7 +42,7 @@ cat plan.md | codex exec \
 
 この事件の教訓は1つ。同じモデルの同じセッション内では、これまでのコンテキストに影響されたりするし、人間だけでなくAIもセルフレビューには限界がある。
 
-2026年3月、OpenAIがClaude Code用のプラグイン [codex-plugin-cc](https://github.com/openai/codex-plugin-cc) を公式に出した。AnthropicのAIエージェントの中からOpenAIのCodexを呼び出して、レビューさせたりタスクを委譲したりできる。
+2026年3月、OpenAIがClaude Code用のプラグイン[codex-plugin-cc](https://github.com/openai/codex-plugin-cc)を公式に出した。AnthropicのAIエージェントの中からOpenAIのCodexを呼び出して、レビューさせたりタスクを委譲したりできる。
 
 `/codex:review`で通常のコードレビュー。`/codex:adversarial-review`で設計判断そのものに圧をかけるモード。バックグラウンド実行もできる。
 

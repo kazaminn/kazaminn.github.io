@@ -16,7 +16,7 @@ Cloudflare Pagesのカスタムドメインを追加した。（注: スクシ�
 
 ![DNS設定画面の『レコード追加』フォーム。エントリー名に『my-app』、タイプに『別名（CNAME）』、データに『my-app.pages.dev』が入力されている。](./images/sakura-dns-record-setting.png)
 
-## 30分後の dig
+## 30分後のdig
 
 Cloudflare側のカスタムドメインのstatusがactiveにならないので不振に思い、WSLターミナルで`dig`コマンドを叩いた（Windowsなら`nslookup`コマンド）。
 
@@ -29,20 +29,20 @@ my-app.example.com.    3387    IN    CNAME    my-app.pages.dev.example.com.
 
 ## 原因
 
-ターゲット末尾の `.`（ドット）を付け忘れていた。
+ターゲット末尾の`.`（ドット）を付け忘れていた。
 
-DNS のゾーンファイルでは、末尾に `.` を持つホスト名は **完全修飾ドメイン名 (FQDN)** として扱われ、`.` を持たないホスト名はゾーン名（この場合は `example.com`）が自動で補完される。
+DNSのゾーンファイルでは、末尾に`.`を持つホスト名は**完全修飾ドメイン名 (FQDN)**として扱われ、`.`を持たないホスト名はゾーン名（この場合は`example.com`）が自動で補完される。
 
-つまり、CNAME のデータ欄に `my-app.pages.dev` と入力すると、末尾に `.example.com` が補完されて `my-app.pages.dev.example.com.` になる。
+つまり、CNAMEのデータ欄に`my-app.pages.dev`と入力すると、末尾に`.example.com`が補完されて`my-app.pages.dev.example.com.`になる。
 
-[さくらのhelp](https://help.sakura.ad.jp/domain/2712/#index_04-01) にも明記されている。
+[さくらのhelp](https://help.sakura.ad.jp/domain/2712/#index_04-01)にも明記されている。
 
 > ドメインコントロールパネルでは、NSレコードやMXレコード、CNAMEレコードなどのデータ欄にホスト名を入力するタイプについて末尾に「.(ドット)」が必要になります。
 > 末尾のドットを入れない場合、ゾーンの名称である独自ドメイン名が自動で補完され、結果として誤った値を指定する事になるので、レコード編集の際には十分ご注意ください。
 
 ## 4. 修正
 
-さくらのコントロールパネルで、末尾に `.` を1文字足して、数分ほど待ってから`dig`を叩く。
+さくらのコントロールパネルで、末尾に`.`を1文字足して、数分ほど待ってから`dig`を叩く。
 
 ```
 ;; ANSWER SECTION:
