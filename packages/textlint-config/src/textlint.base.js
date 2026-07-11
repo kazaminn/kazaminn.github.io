@@ -2,6 +2,7 @@ import { TextlintKernelDescriptor } from '@textlint/kernel';
 import { moduleInterop } from '@textlint/module-interop';
 import markdownPlugin from '@textlint/textlint-plugin-markdown';
 import textPlugin from '@textlint/textlint-plugin-text';
+import commentsFilter from 'textlint-filter-rule-comments';
 import presetAiWriting from 'textlint-rule-preset-ai-writing';
 import presetJaSpacing from 'textlint-rule-preset-ja-spacing';
 import presetJaTechnicalWriting from 'textlint-rule-preset-ja-technical-writing';
@@ -94,7 +95,13 @@ export function createBaseConfig(options = {}) {
 
   return new TextlintKernelDescriptor({
     rules,
-    filterRules: [],
+    filterRules: [
+      {
+        ruleId: 'comments',
+        rule: moduleInterop(commentsFilter),
+        options: true,
+      },
+    ],
     plugins: [
       { pluginId: '@textlint/markdown', plugin: moduleInterop(markdownPlugin) },
       { pluginId: '@textlint/text', plugin: moduleInterop(textPlugin) },

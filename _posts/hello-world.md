@@ -117,3 +117,17 @@ Image by <a href="https://pixabay.com/users/rottonara-596655/?utm_source=link-at
 旅の始まりを告げる魔法の呪文でもある。  
 あなたがどこへ向かうとしても、  
 この一言がそっと背中を押してくれる。
+
+---
+
+## 11. textlint無効テスト
+
+<!-- textlint-disable -->
+
+> ようこそ、世界。  
+> この言葉は、プログラミング の `hello world` であり、  
+> 旅の始まりを、告げる、魔法の、呪文、でもある。  
+> あなたがどこへ向かうとしても、  
+> この一言がそっと背中を押してくれる。
+
+<!-- textlint-enable -->
