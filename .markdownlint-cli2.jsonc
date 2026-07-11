@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/v0.23.0/schema/markdownlint-cli2-config-schema.json",
+
+  "config": {
+    // Match Prettier's output
+    "heading-style": { "style": "atx" },
+    "ul-style": { "style": "dash" },
+    "ul-indent": { "indent": 2 },
+    "hr-style": { "style": "---" },
+    "code-fence-style": { "style": "backtick" },
+    "strong-style": { "style": "asterisk" },
+    "emphasis-style": { "style": "underscore" },
+
+    // Table style (override Prettier's output)
+    "table-pipe-style": { "style": "leading_and_trailing" },
+    "table-column-count": true,
+    "table-column-style": { "style": "compact" },
+
+    // Delegate to textlint
+    "line-length": false,
+    "descriptive-link-text": false,
+    "no-trailing-punctuation": false,
+
+    // Conflicts with my custom md plugins
+    "no-inline-html": false,
+    "no-hard-tabs": false,
+
+    // Other preferences
+    "ol-prefix": { "style": "ordered" },
+    "no-alt-text": true
+  }
+}

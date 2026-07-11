@@ -1,6 +1,7 @@
 {
   "semi": true,
   "bracketSpacing": true,
+  "singleQuote": false,
   "arrowParens": "always",
   "plugins": [
     "@ianvs/prettier-plugin-sort-imports",
