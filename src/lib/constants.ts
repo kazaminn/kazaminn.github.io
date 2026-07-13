@@ -1,11 +1,5 @@
-import {
-  AlertCircle,
-  Info,
-  Lightbulb,
-  OctagonAlert,
-  TriangleAlert,
-} from "lucide-react";
 import type { CustomBlockType } from "@kazamitte/markdown-plugin";
+import type { IconName } from "@/lib/icons";
 
 export const SITE_METADATA = {
   url: "https://kazaminn.github.io",
@@ -46,24 +40,24 @@ export const NAV_ITEMS = [
 export const CUSTOM_BLOCK_TYPES = {
   NOTE: {
     title: "補足",
-    icon: Info,
+    icon: "info",
   },
   TIP: {
     title: "ヒント",
-    icon: Lightbulb,
+    icon: "lightbulb",
   },
   IMPORTANT: {
     title: "重要",
-    icon: AlertCircle,
+    icon: "circle-alert",
   },
   WARNING: {
     title: "注意",
-    icon: TriangleAlert,
+    icon: "triangle-alert",
   },
   CAUTION: {
     title: "警告",
-    icon: OctagonAlert,
+    icon: "octagon-alert",
   },
-} as const satisfies Record<CustomBlockType, unknown>;
+} as const satisfies Record<CustomBlockType, { title: string; icon: IconName }>;
 
 export type { CustomBlockType };

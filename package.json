@@ -30,7 +30,6 @@
     "next": "^16.2.3",
     "next-image-export-optimizer": "^1.20.1",
     "react": "^19",
-    "react-bootstrap-icons": "^1.11.6",
     "react-dom": "^19",
     "react-markdown": "^10.1.0",
     "rehype-pretty-code": "^0.14.1",

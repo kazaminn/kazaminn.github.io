@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight } from "react-bootstrap-icons";
+import { Icon } from "@/app/_components/Icon";
 import { NAV_ITEMS } from "@/lib/constants";
 
 export function Breadcrumbs({ segments }: { segments: string[] }) {
@@ -13,7 +13,7 @@ export function Breadcrumbs({ segments }: { segments: string[] }) {
         </li>
         {segments.map((s, i) => (
           <li key={i} className="flex items-center gap-2">
-            <ChevronRight size={10} aria-hidden="true" className="opacity-60" />
+            <Icon name="chevron-right" size="xs" className="opacity-60" />
             {i === segments.length - 1 ? (
               <span className="text-sub">{s}</span>
             ) : (

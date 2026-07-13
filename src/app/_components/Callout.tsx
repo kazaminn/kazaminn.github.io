@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
+import { Icon } from "@/app/_components/Icon";
 import { CUSTOM_BLOCK_TYPES, type CustomBlockType } from "@/lib/constants";
 import { tv } from "@/lib/tv";
 
 export const calloutStyles = tv({
   slots: {
     root: "flex gap-3 rounded-card border p-4",
-    icon: "size-5 shrink-0 mt-0.5",
+    icon: "mt-0.5",
     title: "font-bold",
     body: "text-base",
   },
@@ -43,12 +44,11 @@ type CalloutProps = {
 
 export const Callout = ({ type, children }: CalloutProps) => {
   const block = CUSTOM_BLOCK_TYPES[type];
-  const Icon = block.icon;
   const styles = calloutStyles({ type });
 
   return (
     <div className={styles.root()}>
-      <Icon size={18} aria-hidden="true" className={styles.icon()} />
+      <Icon name={block.icon} size="lg" className={styles.icon()} />
       <div className="min-w-0">
         <p className={styles.title()}>{block.title}</p>
         <div className={styles.body()}>{children}</div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { List, XLg } from "react-bootstrap-icons";
+import { Icon } from "@/app/_components/Icon";
 import { NAV_ITEMS, SITE_METADATA } from "@/lib/constants";
 
 export function Header() {
@@ -59,7 +59,7 @@ export function Header() {
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((prev) => !prev)}
         >
-          {menuOpen ? <XLg size={20} /> : <List size={20} />}
+          <Icon name={menuOpen ? "close" : "menu"} size="lg" />
         </button>
       </div>
 

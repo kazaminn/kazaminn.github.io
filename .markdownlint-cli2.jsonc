@@ -24,6 +24,7 @@
     // Conflicts with my custom md plugins
     "no-inline-html": false,
     "no-hard-tabs": false,
+    "no-blanks-blockquote": false,
 
     // Other preferences
     "ol-prefix": { "style": "ordered" },

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github } from "react-bootstrap-icons";
+import { Icon } from "@/app/_components/Icon";
 import { SITE_METADATA } from "@/lib/constants";
 
 export function Footer() {
@@ -23,7 +23,7 @@ export function Footer() {
             aria-label="Github"
             className="inline-flex items-center gap-1 text-link"
           >
-            <Github size={14} aria-hidden="true" />
+            <Icon name="github" size="sm" />
             GitHub
           </Link>
         </div>
